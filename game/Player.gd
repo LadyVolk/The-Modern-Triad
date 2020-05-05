@@ -1,22 +1,21 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+export var speed: int
 
 func _ready():
 	$Label.text = "life is great"
 
 
-
 func _process(delta):
+	var mov_vector = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
-		position.y -= 10
+		mov_vector.y -= 1
 	if Input.is_action_pressed("player_down"):
-		position.y += 10
+		mov_vector.y += 1
 	if Input.is_action_pressed("player_right"):
-		position.x += 10
+		mov_vector.x += 1
 	if Input.is_action_pressed("player_left"):
-		position.x -= 10
+		mov_vector.x -= 1
+		
+	mov_vector = mov_vector.normalized()
+	position += mov_vector * speed * delta
