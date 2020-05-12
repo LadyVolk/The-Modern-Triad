@@ -6,3 +6,19 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 467, 263 )
+
+[node name="ArenaWalls" type="StaticBody2D" parent="."]
+
+[node name="TopWall" type="CollisionPolygon2D" parent="ArenaWalls"]
+polygon = PoolVector2Array( 1920, 0, 1920, 30, 0, 30, 0, 0 )
+
+[node name="BottonWall" type="CollisionPolygon2D" parent="ArenaWalls"]
+polygon = PoolVector2Array( 1920, 1050, 1920, 1080, 0, 1080, 0, 1050 )
+
+[node name="LeftWall" type="CollisionPolygon2D" parent="ArenaWalls"]
+position = Vector2( 0, 1080 )
+polygon = PoolVector2Array( 0, 0, 0, -1080, 30, -1080, 30, 0 )
+
+[node name="RightWall" type="CollisionPolygon2D" parent="ArenaWalls"]
+position = Vector2( 0, 1080 )
+polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
