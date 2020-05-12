@@ -44,7 +44,7 @@ func _input(event):
 func get_player_direction():
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	var center_player = $TextureRect.rect_size/2
+	var center_player = $TextureRect.rect_size/2 + global_position
 	
 	return  (mouse_pos - center_player).normalized()
 	
