@@ -35,3 +35,9 @@ __meta__ = {
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 33.2868, 31.8268 )
 shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

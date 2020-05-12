@@ -2,11 +2,15 @@ extends KinematicBody2D
 
 export var speed: int
 
-export var dash_strength = 200
+export var dash_strength = 18000
 
-export var max_speed = 800
+export var max_speed = 600
+
+var dash_movement = Vector2()
 
 var movement = Vector2()
+
+var dash_time = 0.2
 
 func _ready():
 	$Label.text = "life is great"
@@ -28,18 +32,20 @@ func _process(delta):
 	mov_vector = mov_vector.normalized()
 
 	if mov_vector != Vector2.ZERO:
-
+		
 		apply_movement(mov_vector * speed * delta)
 	else:
 		apply_friction(speed * delta)
 			
-	movement = move_and_slide(movement)
+	movement = move_and_slide(movement + dash_movement*delta)
+	move_and_slide(dash_movement*delta)
 	
 	$TextureRect.rect_rotation = rad2deg(get_player_direction().angle())+90
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
 		dash()
+
 
 func get_player_direction():
 	
@@ -48,9 +54,18 @@ func get_player_direction():
 	
 	return  (mouse_pos - center_player).normalized()
 	
+	
 func dash():
+	if not $DashCooldown.is_stopped():
+		return
+		
+	$DashCooldown.start()
+	
+	movement = Vector2()
 	var direction = get_player_direction()
-	#position += direction * dash_strength
+	$Tween.interpolate_property(self, "dash_movement", direction * dash_strength,
+							Vector2(), dash_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
 
 func apply_movement(acceleration):
 	movement += acceleration
