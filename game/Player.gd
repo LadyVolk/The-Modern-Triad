@@ -10,7 +10,14 @@ var dash_movement = Vector2()
 
 var movement = Vector2()
 
-var dash_time = 0.2
+const dash_time = 0.2
+
+const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
+						"bottom": preload("res://assets/images/player/player_botton.png"),
+						"left": preload("res://assets/images/player/player_left.png"),
+						"right": preload("res://assets/images/player/player_right.png")
+
+						}
 
 func _ready():
 	$Label.text = "life is great"
@@ -40,7 +47,9 @@ func _process(delta):
 	movement = move_and_slide(movement + dash_movement*delta)
 	move_and_slide(dash_movement*delta)
 	
-	$TextureRect.rect_rotation = rad2deg(get_player_direction().angle())+90
+	update_player_sprite()
+	
+	
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
@@ -77,4 +86,33 @@ func apply_friction(acceleration):
 		movement -= movement.normalized() * acceleration
 	else:
 		movement = Vector2()
-		
+
+
+func update_player_sprite():
+	var angle = rad2deg(get_player_direction().angle())+90
+	
+	#top
+	if angle >= 315 or angle < 45:
+		$TextureRect.texture = player_sprites.top
+	#right
+	elif angle >= 45 and angle < 135:
+		$TextureRect.texture = player_sprites.right
+	#bottom 
+	elif angle >= 135 and angle < 225:
+		$TextureRect.texture = player_sprites.bottom
+	#left
+	elif angle >= 225 and angle < 315:
+		$TextureRect.texture = player_sprites.left
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 

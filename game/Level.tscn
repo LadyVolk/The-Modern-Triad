@@ -12,7 +12,7 @@ position = Vector2( 467, 263 )
 [node name="TopWall" type="CollisionPolygon2D" parent="ArenaWalls"]
 polygon = PoolVector2Array( 1920, 0, 1920, 30, 0, 30, 0, 0 )
 
-[node name="BottonWall" type="CollisionPolygon2D" parent="ArenaWalls"]
+[node name="BottomWall" type="CollisionPolygon2D" parent="ArenaWalls"]
 polygon = PoolVector2Array( 1920, 1050, 1920, 1080, 0, 1080, 0, 1050 )
 
 [node name="LeftWall" type="CollisionPolygon2D" parent="ArenaWalls"]
