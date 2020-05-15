@@ -1,17 +1,17 @@
 extends KinematicBody2D
 
+signal shoot
+
+onready var image = $Image
+
 export var speed: int
-
 export var dash_strength = 18000
-
 export var max_speed = 400
 
 var dash_movement = Vector2()
-
 var movement = Vector2()
 
 const dash_time = 0.2
-
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),
 						"left": preload("res://assets/images/player/player_left.png"),
@@ -21,7 +21,7 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 
 func _ready():
 	$Label.text = "life is great"
-	$TextureRect.rect_pivot_offset = $TextureRect.rect_size/2
+	image.rect_pivot_offset = image.rect_size/2
 	
 
 
@@ -49,18 +49,17 @@ func _process(delta):
 	
 	update_player_sprite()
 	
-#	position.x = round(position.x)
-#	position.y = round(position.y)
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
 		dash()
-
+	if event.is_action_pressed("shoot"):
+		emit_signal("shoot", position + image.rect_size/2, get_player_direction())
 
 func get_player_direction():
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	var center_player = $TextureRect.rect_size/2 + global_position
+	var center_player = image.rect_size/2 + global_position
 	
 	return  (mouse_pos - center_player).normalized()
 	
@@ -94,16 +93,16 @@ func update_player_sprite():
 	
 	#top
 	if angle >= 315 or angle < 45:
-		$TextureRect.texture = player_sprites.top
+		image.texture = player_sprites.top
 	#right
 	elif angle >= 45 and angle < 135:
-		$TextureRect.texture = player_sprites.right
+		image.texture = player_sprites.right
 	#bottom 
 	elif angle >= 135 and angle < 225:
-		$TextureRect.texture = player_sprites.bottom
+		image.texture = player_sprites.bottom
 	#left
 	elif angle >= 225 and angle < 315:
-		$TextureRect.texture = player_sprites.left
+		image.texture = player_sprites.left
 	
 	
 	

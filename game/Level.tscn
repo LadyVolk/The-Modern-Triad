@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Level.gd" type="Script" id=2]
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 467, 263 )
@@ -22,3 +24,5 @@ polygon = PoolVector2Array( 0, 0, 0, -1080, 30, -1080, 30, 0 )
 [node name="RightWall" type="CollisionPolygon2D" parent="ArenaWalls"]
 position = Vector2( 0, 1080 )
 polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
+
+[node name="Projectiles" type="Node" parent="."]
