@@ -4,7 +4,7 @@ export var speed: int
 
 export var dash_strength = 18000
 
-export var max_speed = 600
+export var max_speed = 400
 
 var dash_movement = Vector2()
 
@@ -49,7 +49,8 @@ func _process(delta):
 	
 	update_player_sprite()
 	
-	
+#	position.x = round(position.x)
+#	position.y = round(position.y)
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):

@@ -8,7 +8,7 @@ extents = Vector2( 5.22812, 11.0863 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
-speed = 3000
+speed = 4000
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_left = 1.0
