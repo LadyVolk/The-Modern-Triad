@@ -2,11 +2,16 @@ extends KinematicBody2D
 
 signal shoot
 
+signal update_health
+
 onready var image = $Image
 
 export var speed: int
 export var dash_strength = 18000
 export var max_speed = 400
+export var max_health = 100
+
+var health
 
 var dash_movement = Vector2()
 var movement = Vector2()
@@ -22,7 +27,7 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 func _ready():
 	$Label.text = "life is great"
 	image.rect_pivot_offset = image.rect_size/2
-	
+	health = max_health
 
 
 func _process(delta):
@@ -105,11 +110,17 @@ func update_player_sprite():
 		image.texture = player_sprites.left
 	
 	
+func take_damage(damage):
+	health -= damage
+	
+	emit_signal("update_health", health)
+	
+	if health <= 0:
+		die()
 	
 	
-	
-	
-	
+func die():
+	queue_free()
 	
 	
 	
