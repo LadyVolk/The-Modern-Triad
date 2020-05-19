@@ -7,7 +7,7 @@ onready var player = $Player
 func _ready():
 	player.connect("shoot", self, "player_shoot")
 	player.connect("update_health", $GameHUD, "update_health")
-
+	player.connect("set_HUD", $GameHUD, "set_HUD")
 
 func player_shoot(pos, direction):
 	var new_projectile = PROJECTILE.instance()

@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
 signal shoot
-
 signal update_health
+signal set_HUD
 
 onready var image = $Image
 
@@ -12,7 +12,6 @@ export var max_speed = 400
 export var max_health = 100
 
 var health
-
 var dash_movement = Vector2()
 var movement = Vector2()
 
@@ -28,7 +27,7 @@ func _ready():
 	$Label.text = "life is great"
 	image.rect_pivot_offset = image.rect_size/2
 	health = max_health
-
+	emit_signal("set_HUD", max_health)
 
 func _process(delta):
 	var mov_vector = Vector2(0, 0)
@@ -50,6 +49,7 @@ func _process(delta):
 		apply_friction(speed * delta)
 			
 	movement = move_and_slide(movement + dash_movement*delta)
+# warning-ignore:return_value_discarded
 	move_and_slide(dash_movement*delta)
 	
 	update_player_sprite()
