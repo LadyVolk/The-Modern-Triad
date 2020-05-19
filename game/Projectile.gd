@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 var direction
 export var speed = 1000
@@ -6,5 +6,9 @@ export var speed = 1000
 func _ready():
 	direction = Vector2()
 
-func _process(delta):
-	position += speed * delta * direction
+func _physics_process(delta):
+
+	var collision = move_and_collide(speed * delta * direction)
+
+	if collision and collision.collider.is_in_group("walls"):
+		queue_free()

@@ -9,7 +9,11 @@ script = ExtResource( 2 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 467, 263 )
 
-[node name="ArenaWalls" type="StaticBody2D" parent="."]
+[node name="ArenaWalls" type="StaticBody2D" parent="." groups=[
+"walls",
+]]
+collision_layer = 4
+collision_mask = 7
 
 [node name="TopWall" type="CollisionPolygon2D" parent="ArenaWalls"]
 polygon = PoolVector2Array( 1920, 0, 1920, 30, 0, 30, 0, 0 )

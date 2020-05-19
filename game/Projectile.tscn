@@ -4,10 +4,9 @@
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="Projectile" type="Node2D"]
+[node name="Projectile" type="KinematicBody2D"]
+collision_mask = 5
 script = ExtResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="Collision" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
