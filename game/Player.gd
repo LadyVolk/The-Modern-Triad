@@ -5,6 +5,7 @@ signal update_health
 signal set_HUD
 
 onready var image = $Image
+onready var animation = $AnimationPlayer
 
 export var speed: int
 export var dash_strength = 18000
@@ -19,13 +20,12 @@ const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),
 						"left": preload("res://assets/images/player/player_left.png"),
-						"right": preload("res://assets/images/player/player_right.png")
-
+						"right": preload("res://assets/images/player/player_right.png"),
+						"running": preload("res://assets/images/player/running.png")
 						}
 
 func _ready():
 	$Label.text = "life is great"
-	image.rect_pivot_offset = image.rect_size/2
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
@@ -59,12 +59,12 @@ func _input(event):
 	if event.is_action_pressed("player_dash"):
 		dash()
 	if event.is_action_pressed("shoot"):
-		emit_signal("shoot", position + image.rect_size/2, get_player_direction())
+		emit_signal("shoot", position, get_player_direction())
 
 func get_player_direction():
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	var center_player = image.rect_size/2 + global_position
+	var center_player = global_position
 	
 	return  (mouse_pos - center_player).normalized()
 	
@@ -98,16 +98,31 @@ func update_player_sprite():
 	
 	#top
 	if angle >= 315 or angle < 45:
-		image.texture = player_sprites.top
+		if movement.length() <= 0.1:
+			animation.play("idle_top")
+		else: 
+			animation.play("running_top")
+	
 	#right
 	elif angle >= 45 and angle < 135:
-		image.texture = player_sprites.right
+		if movement.length() <= 0.1:
+			animation.play("idle_right")
+		else: 
+			animation.play("running_right")
+	
 	#bottom 
 	elif angle >= 135 and angle < 225:
-		image.texture = player_sprites.bottom
+		if movement.length() <= 0.1:
+			animation.play("idle_bottom")
+		else: 
+			animation.play("running_bottom")
+	
 	#left
 	elif angle >= 225 and angle < 315:
-		image.texture = player_sprites.left
+		if movement.length() <= 0.1:
+			animation.play("idle_left")
+		else: 
+			animation.play("running_left")
 	
 	
 func take_damage(damage):
