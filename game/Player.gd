@@ -11,10 +11,14 @@ export var speed: int
 export var dash_strength = 18000
 export var max_speed = 400
 export var max_health = 100
+export var max_still_time = 1 
+export var still_damage = 20
 
 var health
 var dash_movement = Vector2()
 var movement = Vector2()
+var mode = "depression"
+var still_time = 0
 
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
@@ -30,6 +34,7 @@ func _ready():
 	emit_signal("set_HUD", max_health)
 
 func _process(delta):
+	
 	var mov_vector = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
 		mov_vector.y -= 1
@@ -43,10 +48,14 @@ func _process(delta):
 	mov_vector = mov_vector.normalized()
 
 	if mov_vector != Vector2.ZERO:
-		
+		still_time = 0
 		apply_movement(mov_vector * speed * delta)
 	else:
 		apply_friction(speed * delta)
+		
+		still_time += delta
+		if still_time >= max_still_time:
+			take_damage(still_damage * delta)
 			
 	movement = move_and_slide(movement + dash_movement*delta)
 # warning-ignore:return_value_discarded
