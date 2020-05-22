@@ -12,7 +12,8 @@ export var dash_strength = 18000
 export var max_speed = 400
 export var max_health = 100
 export var max_still_time = 1 
-export var still_damage = 20
+export var still_damage = 30
+export var movement_heal = 5
 
 var health
 var dash_movement = Vector2()
@@ -50,6 +51,8 @@ func _process(delta):
 	if mov_vector != Vector2.ZERO:
 		still_time = 0
 		apply_movement(mov_vector * speed * delta)
+		
+		heal(movement_heal*delta)
 	else:
 		apply_friction(speed * delta)
 		
@@ -149,8 +152,8 @@ func take_damage(damage):
 func die():
 	queue_free()
 	
+func heal(heal):
+	health = min(max_health, health+heal)
 	
-	
-	
-	
+	emit_signal("update_health", health)	
 	 
