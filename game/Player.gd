@@ -96,6 +96,9 @@ func apply_friction(acceleration):
 func update_player_sprite():
 	var angle = rad2deg(get_player_direction().angle())+90
 	
+	if angle < 0:
+		angle += 360
+	
 	#top
 	if angle >= 315 or angle < 45:
 		if movement.length() <= 0.1:
