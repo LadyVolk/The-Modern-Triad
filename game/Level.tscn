@@ -16,6 +16,10 @@ script = ExtResource( 2 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 467, 263 )
 
+[node name="SpeedBoostTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
 [node name="ArenaWalls" type="StaticBody2D" parent="." groups=[
 "walls",
 ]]
@@ -54,3 +58,4 @@ position = Vector2( 1500, 500 )
 
 [node name="CollisionShape" type="CollisionShape2D" parent="BoostSpawnAreaR"]
 shape = SubResource( 1 )
+[connection signal="timeout" from="SpeedBoostTimer" to="." method="create_boost"]
