@@ -4,7 +4,9 @@
 [ext_resource path="res://Level.gd" type="Script" id=2]
 [ext_resource path="res://GameHUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Depression/Depression.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Bosses/Depression/SpeedBoost.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 300, 350 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -41,8 +43,14 @@ position = Vector2( 964.505, 360.499 )
 
 [node name="SpeedBoosts" type="Node" parent="."]
 
-[node name="SpeedBoost" parent="SpeedBoosts" instance=ExtResource( 5 )]
-position = Vector2( 427.157, 654.34 )
+[node name="BoostSpawnAreaL" type="Area2D" parent="."]
+position = Vector2( 500, 500 )
 
-[node name="SpeedBoost2" parent="SpeedBoosts" instance=ExtResource( 5 )]
-position = Vector2( 1407.99, 759.089 )
+[node name="CollisionShape" type="CollisionShape2D" parent="BoostSpawnAreaL"]
+shape = SubResource( 1 )
+
+[node name="BoostSpawnAreaR" type="Area2D" parent="."]
+position = Vector2( 1500, 500 )
+
+[node name="CollisionShape" type="CollisionShape2D" parent="BoostSpawnAreaR"]
+shape = SubResource( 1 )
