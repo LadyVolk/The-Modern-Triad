@@ -11,7 +11,7 @@ export var speed: int
 export var dash_strength = 18000
 export var max_speed = 400
 export var min_speed = 100
-export var speed_boost = 100
+export var speed_boost = 300
 export var speed_slowdown = 40
 export var max_health = 100
 export var max_still_time = 1 
