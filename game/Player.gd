@@ -10,6 +10,9 @@ onready var animation = $AnimationPlayer
 export var speed: int
 export var dash_strength = 18000
 export var max_speed = 400
+export var min_speed = 100
+export var speed_boost = 100
+export var speed_slowdown = 40
 export var max_health = 100
 export var max_still_time = 1 
 export var still_damage = 30
@@ -66,6 +69,8 @@ func _process(delta):
 	
 	update_player_sprite()
 	
+	#slowdown by depression
+	max_speed = max(min_speed, max_speed - speed_slowdown * delta)
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
