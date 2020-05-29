@@ -24,9 +24,7 @@ func player_shoot(pos, direction):
 	new_projectile.direction = direction
 
 func _input(event):
-	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_SPACE:
-			player.take_damage(30)
+	pass
 
 func create_boost():
 	

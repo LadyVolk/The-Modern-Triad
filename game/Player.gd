@@ -23,6 +23,7 @@ var dash_movement = Vector2()
 var movement = Vector2()
 var mode = "depression"
 var still_time = 0
+var stunned = false
 
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
@@ -51,7 +52,7 @@ func _process(delta):
 	
 	mov_vector = mov_vector.normalized()
 
-	if mov_vector != Vector2.ZERO:
+	if mov_vector != Vector2.ZERO and not stunned:
 		still_time = 0
 		apply_movement(mov_vector * speed * delta)
 		
@@ -87,7 +88,7 @@ func get_player_direction():
 	
 	
 func dash():
-	if not $DashCooldown.is_stopped():
+	if not $DashCooldown.is_stopped() or stunned:
 		return
 		
 	$DashCooldown.start()
@@ -163,10 +164,15 @@ func heal(heal):
 	emit_signal("update_health", health)	
 	 
 	
-func stun():
-	take_damage(20)
+func stun(stun_time):
 	
+	if stunned:
+		return
 	
+	stunned = true
 	
+	yield(get_tree().create_timer(stun_time), "timeout")
+	
+	stunned = false
 	
 	
