@@ -17,7 +17,7 @@ script = ExtResource( 2 )
 position = Vector2( 467, 263 )
 
 [node name="SpeedBoostTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 10.0
 autostart = true
 
 [node name="ArenaWalls" type="StaticBody2D" parent="." groups=[

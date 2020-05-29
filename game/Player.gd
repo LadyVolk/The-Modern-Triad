@@ -14,7 +14,7 @@ export var min_speed = 100
 export var speed_boost = 300
 export var speed_slowdown = 40
 export var max_health = 100
-export var max_still_time = 1 
+export var max_still_time = 0.2 
 export var still_damage = 30
 export var movement_heal = 5
 
@@ -53,17 +53,20 @@ func _process(delta):
 	mov_vector = mov_vector.normalized()
 
 	if mov_vector != Vector2.ZERO and not stunned:
-		still_time = 0
 		apply_movement(mov_vector * speed * delta)
-		
-		heal(movement_heal*delta)
 	else:
 		apply_friction(speed * delta)
 		
 		still_time += delta
 		if still_time >= max_still_time:
 			take_damage(still_damage * delta)
-			
+	
+	if (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
+		and not stunned:
+		still_time = 0
+		
+		heal(movement_heal*delta)
+	
 	movement = move_and_slide(movement + dash_movement*delta)
 # warning-ignore:return_value_discarded
 	move_and_slide(dash_movement*delta)

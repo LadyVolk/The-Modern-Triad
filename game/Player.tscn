@@ -434,7 +434,7 @@ tracks/3/keys = {
 "player",
 ]]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 script = ExtResource( 2 )
 speed = 4000
 

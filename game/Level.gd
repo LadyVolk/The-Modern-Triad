@@ -16,6 +16,8 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	boss.connect("depression_shoot", self, "boss_shoot")
+	create_boost()
+	create_boost()
 
 func player_shoot(pos, direction):
 	var new_projectile = PROJECTILE.instance()
@@ -63,11 +65,11 @@ func create_boost():
 									which_area.position.y+shape.extents.y)
 	
 
-func boss_shoot(pos):
+func boss_shoot(pos, direction):
 	var new_projectile = NEGATIVITY.instance()
 	$Projectiles.add_child(new_projectile)
 	new_projectile.position = pos
-	new_projectile.direction = Vector2(0, 1)
+	new_projectile.direction = direction
 	
 	new_projectile.connect("stun_player", player, "stun")
 	
