@@ -43,7 +43,7 @@ polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="Depression" parent="." instance=ExtResource( 4 )]
-position = Vector2( 964.505, 360.499 )
+position = Vector2( 997.154, 350.976 )
 
 [node name="SpeedBoosts" type="Node" parent="."]
 

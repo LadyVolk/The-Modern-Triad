@@ -162,3 +162,11 @@ func heal(heal):
 	
 	emit_signal("update_health", health)	
 	 
+	
+func stun():
+	take_damage(20)
+	
+	
+	
+	
+	
