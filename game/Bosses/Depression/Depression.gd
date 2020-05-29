@@ -16,3 +16,6 @@ func _on_Timer_timeout():
 		emit_signal("depression_shoot", global_position, 
 					Vector2(cos(angle_rad), sin(angle_rad)))
 		angle_rad += 2*PI/number
+
+func _physics_process(delta):
+	

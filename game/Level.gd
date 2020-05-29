@@ -10,7 +10,6 @@ onready var boss = $Depression
 
 enum REGION {left, right}
 
-
 func _ready():
 	player.connect("shoot", self, "player_shoot")
 	player.connect("update_health", $GameHUD, "update_health")
@@ -29,9 +28,7 @@ func _input(event):
 	pass
 
 func create_boost():
-	
 	var new_boost
-	
 	
 	randomize() 
 	var which_area
@@ -74,8 +71,13 @@ func boss_shoot(pos, direction):
 	new_projectile.connect("stun_player", player, "stun")
 	
 	
-	
-	
+func random_position():
+	randomize()
+	var shape = get_node("ArenaArea/CollisionShape2D").shape
+	var area = get_node("ArenaArea").position
+	var new_pos = Vector2(rand_range(area.x-shape.extents.x, area.x+shape.extents.x), 
+						  rand_range(area.y-shape.extents.y, area.y+shape.extents.y))
+	return new_pos
 	
 	
 	
