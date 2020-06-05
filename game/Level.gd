@@ -15,6 +15,7 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	boss.connect("depression_shoot", self, "boss_shoot")
+	boss.connect("new_target_position", self, "get_boss_position")
 	create_boost()
 	create_boost()
 
@@ -73,12 +74,11 @@ func boss_shoot(pos, direction):
 	
 func random_position():
 	randomize()
-	var shape = get_node("ArenaArea/CollisionShape2D").shape
-	var area = get_node("ArenaArea").position
+	var shape = $BossArea/CollisionShape2D.shape
+	var area = $BossArea.position
 	var new_pos = Vector2(rand_range(area.x-shape.extents.x, area.x+shape.extents.x), 
 						  rand_range(area.y-shape.extents.y, area.y+shape.extents.y))
 	return new_pos
 	
-	
-	
-	
+func get_boss_position():
+	boss.target_destination = random_position()
