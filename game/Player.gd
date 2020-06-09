@@ -172,6 +172,9 @@ func melee_attack():
 
 	var angle = rad2deg(get_player_direction().angle())	
 	
+	if angle < 0:
+		angle += 360
+	
 	animation.play("attack_"+get_direction_name(angle))
 	
 	yield(animation, "animation_finished")
