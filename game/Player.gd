@@ -118,6 +118,9 @@ func apply_friction(acceleration):
 
 
 func update_player_sprite():
+	if attacking:
+		return
+		
 	var angle = rad2deg(get_player_direction().angle())	
 	
 	if angle < 0:
@@ -160,11 +163,22 @@ func stun(stun_time):
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
 	stunned = false
+
 	
 func melee_attack():
 	if attacking:
 		return
 	attacking = true
+
+	var angle = rad2deg(get_player_direction().angle())	
+	
+	animation.play("attack_"+get_direction_name(angle))
+	
+	yield(animation, "animation_finished")
+	
+	animation.play("idle_"+get_direction_name(angle))
+	
+	attacking = false
 	
 func get_direction_name(angle):
 	#top

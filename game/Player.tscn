@@ -168,7 +168,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-resource_name = "attack_up"
+resource_name = "attack_top"
 length = 0.4
 step = 0.04
 tracks/0/type = "value"
@@ -641,7 +641,9 @@ script = ExtResource( 2 )
 speed = 4000
 
 [node name="Image" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 6 )
+vframes = 4
+hframes = 10
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -672,7 +674,7 @@ autoplay = "idle_bottom"
 anims/attack_bottom = SubResource( 2 )
 anims/attack_left = SubResource( 3 )
 anims/attack_right = SubResource( 4 )
-anims/attack_up = SubResource( 5 )
+anims/attack_top = SubResource( 5 )
 anims/idle_bottom = SubResource( 6 )
 anims/idle_left = SubResource( 7 )
 anims/idle_right = SubResource( 8 )

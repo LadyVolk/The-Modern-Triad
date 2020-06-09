@@ -25,8 +25,6 @@ func player_shoot(pos, direction):
 	new_projectile.position = pos
 	new_projectile.direction = direction
 
-func _input(event):
-	pass
 
 func create_boost():
 	var new_boost
