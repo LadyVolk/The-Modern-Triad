@@ -23,6 +23,7 @@ var dash_movement = Vector2()
 var movement = Vector2()
 var mode = "depression"
 var still_time = 0
+var attacking = false
 var stunned = false
 
 const dash_time = 0.2
@@ -79,9 +80,11 @@ func _process(delta):
 func _input(event):
 	if event.is_action_pressed("player_dash"):
 		dash()
-	if event.is_action_pressed("shoot"):
+	elif event.is_action_pressed("shoot"):
 		emit_signal("shoot", position, get_player_direction())
-
+	elif event.is_action_pressed("melee_attack"):
+		melee_attack()
+		
 func get_player_direction():
 	
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -115,38 +118,18 @@ func apply_friction(acceleration):
 
 
 func update_player_sprite():
-	var angle = rad2deg(get_player_direction().angle())+90
+	var angle = rad2deg(get_player_direction().angle())	
 	
 	if angle < 0:
 		angle += 360
 	
-	#top
-	if angle >= 315 or angle < 45:
-		if movement.length() <= 0.1:
-			animation.play("idle_top")
-		else: 
-			animation.play("running_top")
+	var direction = get_direction_name(angle)
 	
-	#right
-	elif angle >= 45 and angle < 135:
-		if movement.length() <= 0.1:
-			animation.play("idle_right")
-		else: 
-			animation.play("running_right")
+	if movement.length() <= 0.1:
+		animation.play("idle_"+direction)
+	else: 
+		animation.play("running_"+direction)
 	
-	#bottom 
-	elif angle >= 135 and angle < 225:
-		if movement.length() <= 0.1:
-			animation.play("idle_bottom")
-		else: 
-			animation.play("running_bottom")
-	
-	#left
-	elif angle >= 225 and angle < 315:
-		if movement.length() <= 0.1:
-			animation.play("idle_left")
-		else: 
-			animation.play("running_left")
 	
 	
 func take_damage(damage):
@@ -177,5 +160,33 @@ func stun(stun_time):
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
 	stunned = false
+	
+func melee_attack():
+	if attacking:
+		return
+	attacking = true
+	
+func get_direction_name(angle):
+	#top
+	if angle >= 225 and angle < 315:
+		return "top"
+	
+	#right
+	elif angle >= 315 or angle < 45:
+		return "right"
+	
+	#bottom 
+	elif angle >= 45 and angle < 135:
+		return "bottom"
+	
+	#left
+	elif angle >= 135 and angle < 225:
+		return "left"
+	
+	
+	
+	
+	
+	
 	
 	
