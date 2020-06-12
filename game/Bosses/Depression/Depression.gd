@@ -57,12 +57,13 @@ func how_much_to_move(target_position, origin_position, how_much):
 func _on_TimerPosition_timeout():
 	emit_signal("new_target_position")
 	
-func take_damage(damage):
+func take_damage(damage, stun_time):
 	health -= damage
 	
 	if health <= 0:
 		die()
-	
+	else:
+		print("stun")
 
 func die():
 	queue_free()

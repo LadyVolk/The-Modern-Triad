@@ -25,6 +25,7 @@ var mode = "depression"
 var still_time = 0
 var attacking = false
 var stunned = false
+var player_hit_stun = 0.1
 
 const melee_damage = 10
 const dash_time = 0.2
@@ -204,4 +205,10 @@ func get_direction_name(angle):
 
 func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 	if(body.is_in_group("boss")):
-		body.take_damage(melee_damage)
+		body.take_damage(melee_damage, player_hit_stun)
+		$AnimationPlayer.stop(false)
+		yield(get_tree().create_timer(player_hit_stun), "timeout")
+		$AnimationPlayer.play()
+
+
+
