@@ -205,7 +205,7 @@ func get_direction_name(angle):
 
 func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 	if(body.is_in_group("boss")):
-		body.take_damage(melee_damage, player_hit_stun)
+		body.take_damage(melee_damage)
 		$AnimationPlayer.stop(false)
 		yield(get_tree().create_timer(player_hit_stun), "timeout")
 		$AnimationPlayer.play()

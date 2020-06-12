@@ -57,17 +57,19 @@ func how_much_to_move(target_position, origin_position, how_much):
 func _on_TimerPosition_timeout():
 	emit_signal("new_target_position")
 	
-func take_damage(damage, stun_time):
+func take_damage(damage):
 	health -= damage
 	
 	if health <= 0:
 		die()
 	else:
-		print("stun")
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("stun")
 
 func die():
 	queue_free()
 	
-	
+func play_idle():
+	$AnimationPlayer.play("idle")
 	
 	
