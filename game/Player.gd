@@ -26,6 +26,7 @@ var still_time = 0
 var attacking = false
 var stunned = false
 
+const melee_damage = 10
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),
@@ -200,10 +201,7 @@ func get_direction_name(angle):
 	elif angle >= 135 and angle < 225:
 		return "left"
 	
-	
-	
-	
-	
-	
-	
-	
+
+func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
+	if(body.is_in_group("boss")):
+		body.take_damage(melee_damage)

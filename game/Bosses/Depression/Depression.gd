@@ -8,6 +8,8 @@ signal new_target_position
 var target_destination
 var speed = 300
 
+export var health = 200
+
 func _ready():
 	pass
 
@@ -54,3 +56,17 @@ func how_much_to_move(target_position, origin_position, how_much):
 	
 func _on_TimerPosition_timeout():
 	emit_signal("new_target_position")
+	
+func take_damage(damage):
+	health -= damage
+	
+	if health <= 0:
+		die()
+	
+
+func die():
+	queue_free()
+	
+	
+	
+	
