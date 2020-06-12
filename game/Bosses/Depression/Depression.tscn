@@ -4,7 +4,7 @@
 [ext_resource path="res://Bosses/Depression/Depression.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 23.8498, 23.5528 )
+extents = Vector2( 24.9526, 24.9275 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"

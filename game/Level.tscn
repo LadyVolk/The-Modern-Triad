@@ -16,9 +16,6 @@ script = ExtResource( 2 )
 
 [node name="GameHUD" parent="." instance=ExtResource( 3 )]
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 467, 263 )
-
 [node name="SpeedBoostTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
@@ -47,6 +44,9 @@ polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
 
 [node name="Depression" parent="." instance=ExtResource( 4 )]
 position = Vector2( 997.154, 350.976 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 467, 263 )
 
 [node name="SpeedBoosts" type="Node" parent="."]
 
