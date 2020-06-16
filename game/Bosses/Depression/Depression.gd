@@ -89,8 +89,7 @@ func take_damage(damage):
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("stun")
 		if boss_state == 1:
-			$Timer.wait_time = 9	
-			boss_state = 2
+			change_state(2)
 	elif health <= 70 and health > 0:
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("stun")
@@ -105,5 +104,19 @@ func die():
 	
 func play_idle():
 	$AnimationPlayer.play("idle")
+	
+func change_state(new_stage):
+	boss_state = new_stage
+	
+	if new_stage == 2:
+		$Timer.wait_time = 9	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
