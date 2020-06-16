@@ -8,6 +8,8 @@ signal new_target_position
 var target_destination
 var speed = 300
 
+var boss_state = 1
+
 export var health = 200
 
 func _ready():
@@ -15,14 +17,34 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	randomize()
-	var angle_rad =  rand_range(0, 2*PI)
-	var number = 25
-	for _i in range(0, number):
-		emit_signal("depression_shoot", global_position, 
-					Vector2(cos(angle_rad), sin(angle_rad)))
-		angle_rad += 2*PI/number
-
+	
+	if boss_state == 1:
+		randomize()
+		var angle_rad =  rand_range(0, 2*PI)
+		var number = 20
+		for _i in range(0, number):
+			emit_signal("depression_shoot", global_position, 
+						Vector2(cos(angle_rad), sin(angle_rad)))
+			angle_rad += 2*PI/number
+	elif boss_state == 2:
+		
+		randomize()
+		var initial_angle =  rand_range(0, 2*PI)
+		for j in 10:
+			var angle_rad = initial_angle + j * PI/5
+			var number = 15
+			for _i in range(0, number):
+				emit_signal("depression_shoot", global_position, 
+							Vector2(cos(angle_rad), sin(angle_rad)))
+				angle_rad += 2*PI/number
+			yield(get_tree().create_timer(0.4), "timeout")
+			
+		
+	
+	elif boss_state == 3:
+		pass	
+	
+	
 func _physics_process(delta):
 	if target_destination:
 		var how_much = delta*speed
@@ -30,8 +52,7 @@ func _physics_process(delta):
 		var move_x = how_much_to_move(target_destination.x, position.x, how_much)
 		var move_y = how_much_to_move(target_destination.y, position.y, how_much)
 		
-		
-		var move = Vector2(move_x, move_y)
+		var move = Vector2(move_x, move_y)	
 		
 # warning-ignore:return_value_discarded
 		move_and_collide(move)
@@ -60,11 +81,24 @@ func _on_TimerPosition_timeout():
 func take_damage(damage):
 	health -= damage
 	
-	if health <= 0:
-		die()
-	else:
+	if health <= 200 and health > 140:
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("stun")
+	
+	elif health <= 140 and health > 70:
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("stun")
+		if boss_state == 1:
+			$Timer.wait_time = 9	
+			boss_state = 2
+	elif health <= 70 and health > 0:
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("stun")
+	
+		boss_state = 3
+	else:
+		die()
+	
 
 func die():
 	queue_free()

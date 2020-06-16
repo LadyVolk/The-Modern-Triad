@@ -5,7 +5,7 @@ var direction
 const force = 15000
 
 
-export var speed = 1000
+export var speed = 800
 export var stun_time = 1
 
 signal stun_player

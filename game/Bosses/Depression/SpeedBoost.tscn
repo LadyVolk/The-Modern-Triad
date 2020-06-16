@@ -4,6 +4,7 @@
 [ext_resource path="res://Bosses/Depression/SpeedBoost.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 33.8463, 33.3406 )
 
 [node name="SpeedBoost" type="Node2D"]
 script = ExtResource( 2 )

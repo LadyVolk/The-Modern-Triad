@@ -8,11 +8,11 @@ onready var image = $Image
 onready var animation = $AnimationPlayer
 
 export var speed: int
-export var dash_strength = 18000
+export var dash_strength = 40000
 export var max_speed = 400
 export var min_speed = 100
 export var speed_boost = 300
-export var speed_slowdown = 40
+export var speed_slowdown = 30
 export var max_health = 100
 export var max_still_time = 0.2 
 export var still_damage = 30
@@ -28,7 +28,7 @@ var attacking = false
 var stunned = false
 var player_hit_stun = 0.1
 
-const melee_damage = 10
+const melee_damage = 5
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),
@@ -59,7 +59,7 @@ func _process(delta):
 	if mov_vector != Vector2.ZERO and not stunned:
 		apply_movement(mov_vector * speed * delta)
 	else:
-		apply_friction(speed * delta)
+		apply_friction(speed*2 * delta)
 		
 		still_time += delta
 		if still_time >= max_still_time:
@@ -79,8 +79,7 @@ func _process(delta):
 	
 	#slowdown by depression
 	max_speed = max(min_speed, max_speed - speed_slowdown * delta)
-
-	print(knockback_movement)
+	
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
@@ -107,7 +106,7 @@ func dash():
 	movement = Vector2()
 	var direction = get_player_direction()
 	$Tween.interpolate_property(self, "dash_movement", direction * dash_strength,
-							Vector2(), dash_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
+							Vector2(), dash_time, Tween.TRANS_QUAD, Tween.EASE_OUT_IN)
 	$Tween.start()
 
 func apply_movement(acceleration):
