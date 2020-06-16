@@ -98,8 +98,8 @@ func take_damage(damage):
 	elif health <= 70 and health > 0:
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("stun")
-	
-		boss_state = 3
+		if boss_state == 2:
+			change_state(3)
 	else:
 		die()
 	
@@ -114,6 +114,9 @@ func change_state(new_stage):
 	boss_state = new_stage
 	invincible = true
 	$AnimationPlayer.play("change_state")
+	$Tween.interpolate_property(self, "scale", scale, scale*0.7, 1, 
+								Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+	$Tween.start()
 	$Timer.stop()
 	yield($AnimationPlayer, "animation_finished")
 	invincible = false

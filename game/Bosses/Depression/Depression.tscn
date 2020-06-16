@@ -107,5 +107,7 @@ autoplay = "idle"
 anims/change_state = SubResource( 4 )
 anims/idle = SubResource( 2 )
 anims/stun = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
