@@ -3,7 +3,7 @@ extends KinematicBody2D
 class_name Projectile
 
 var direction
-export var speed = 1000
+export var speed = 30000
 
 func _ready():
 	direction = Vector2()

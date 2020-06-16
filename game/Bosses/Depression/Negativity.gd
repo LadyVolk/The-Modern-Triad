@@ -1,6 +1,10 @@
 extends KinematicBody2D
 
 var direction
+
+const force = 15000
+
+
 export var speed = 1000
 export var stun_time = 1
 
@@ -17,6 +21,6 @@ func _physics_process(delta):
 		if collision.collider.is_in_group("walls"):
 			queue_free()
 		elif collision.collider.is_in_group("player"):
-			emit_signal("stun_player", stun_time)
+			emit_signal("stun_player", stun_time, direction, force)
 			queue_free()
 

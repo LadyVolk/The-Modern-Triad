@@ -21,6 +21,7 @@ export var movement_heal = 5
 var health
 var dash_movement = Vector2()
 var movement = Vector2()
+var knockback_movement = Vector2()
 var mode = "depression"
 var still_time = 0
 var attacking = false
@@ -70,14 +71,16 @@ func _process(delta):
 		
 		heal(movement_heal*delta)
 	
-	movement = move_and_slide(movement + dash_movement*delta)
-# warning-ignore:return_value_discarded
-	move_and_slide(dash_movement*delta)
+	movement = move_and_slide(movement + dash_movement*delta + 
+							  knockback_movement*delta)
+
 	
 	update_player_sprite()
 	
 	#slowdown by depression
 	max_speed = max(min_speed, max_speed - speed_slowdown * delta)
+
+	print(knockback_movement)
 
 func _input(event):
 	if event.is_action_pressed("player_dash"):
@@ -155,17 +158,19 @@ func heal(heal):
 	emit_signal("update_health", health)	
 	 
 	
-func stun(stun_time):
+func stun(stun_time, direction, force):
 	
 	if stunned:
 		return
 	
 	stunned = true
 	
+	knockback(direction, force)
+	
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
 	stunned = false
-
+	
 	
 func melee_attack():
 	if attacking:
@@ -211,4 +216,10 @@ func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 		$AnimationPlayer.play()
 
 
+func knockback(direction, force):
+	$Tween.interpolate_property(self, "knockback_movement", 
+								direction.normalized() * force, Vector2(),
+								0.4,Tween.TRANS_QUAD, Tween.EASE_OUT)
+	$Tween.start()							
+	
 

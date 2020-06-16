@@ -17,7 +17,7 @@ func _ready():
 func _on_Timer_timeout():
 	randomize()
 	var angle_rad =  rand_range(0, 2*PI)
-	var number = 8
+	var number = 25
 	for _i in range(0, number):
 		emit_signal("depression_shoot", global_position, 
 					Vector2(cos(angle_rad), sin(angle_rad)))
