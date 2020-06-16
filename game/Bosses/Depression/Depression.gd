@@ -7,7 +7,7 @@ signal new_target_position
 
 var target_destination
 var speed = 300
-
+var invincible = false
 var boss_state = 1
 
 export var health = 200
@@ -31,6 +31,8 @@ func _on_Timer_timeout():
 		randomize()
 		var initial_angle =  rand_range(0, 2*PI)
 		for j in 10:
+			if invincible:
+				return
 			var angle_rad = initial_angle + j * PI/5
 			var number = 15
 			for _i in range(0, number):
@@ -46,7 +48,7 @@ func _on_Timer_timeout():
 	
 	
 func _physics_process(delta):
-	if target_destination:
+	if target_destination and not invincible:
 		var how_much = delta*speed
 		
 		var move_x = how_much_to_move(target_destination.x, position.x, how_much)
@@ -79,6 +81,9 @@ func _on_TimerPosition_timeout():
 	emit_signal("new_target_position")
 	
 func take_damage(damage):
+	if invincible:
+		return
+	
 	health -= damage
 	
 	if health <= 200 and health > 140:
@@ -107,10 +112,16 @@ func play_idle():
 	
 func change_state(new_stage):
 	boss_state = new_stage
-	
+	invincible = true
+	$AnimationPlayer.play("change_state")
+	$Timer.stop()
+	yield($AnimationPlayer, "animation_finished")
+	invincible = false
 	if new_stage == 2:
+		$Timer.start()
 		$Timer.wait_time = 9	
-	
+	if new_stage == 3:
+		pass
 	
 	
 	

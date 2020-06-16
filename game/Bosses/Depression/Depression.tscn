@@ -8,7 +8,6 @@ extents = Vector2( 24.9526, 24.9275 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "change_state"
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
