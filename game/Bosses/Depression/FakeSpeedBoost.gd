@@ -11,5 +11,6 @@ func _on_Area2D_body_entered(body):
 
 
 func activate(player):
+	player.stun(2, false, false)
 	queue_free()
 	

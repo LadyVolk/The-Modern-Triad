@@ -163,13 +163,13 @@ func heal(heal):
 	 
 	
 func stun(stun_time, direction, force):
-	
 	if stunned:
 		return
 	
 	stunned = true
 	
-	knockback(direction, force)
+	if direction:
+		knockback(direction, force)
 	
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
