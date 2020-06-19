@@ -42,6 +42,8 @@ polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
 
 [node name="Projectiles" type="Node" parent="."]
 
+[node name="FakeSpeedBoosts" type="Node" parent="."]
+
 [node name="SpeedBoosts" type="Node" parent="."]
 
 [node name="Depression" parent="." instance=ExtResource( 4 )]
@@ -67,4 +69,4 @@ position = Vector2( 965, 500 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossArea"]
 shape = SubResource( 2 )
-[connection signal="timeout" from="SpeedBoostTimer" to="." method="create_boost"]
+[connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]

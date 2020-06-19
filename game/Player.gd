@@ -27,6 +27,7 @@ var still_time = 0
 var attacking = false
 var stunned = false
 var player_hit_stun = 0.1
+var debug = true
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -140,6 +141,10 @@ func update_player_sprite():
 	
 	
 func take_damage(damage):
+	
+	if debug:
+		return
+	
 	health -= damage
 	
 	emit_signal("update_health", health)
