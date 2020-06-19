@@ -19,6 +19,7 @@ func _ready():
 	boss.connect("new_target_position", self, "get_boss_position")
 	create_boost()
 	create_boost()
+	boss.player = player
 	
 
 func player_shoot(pos, direction):

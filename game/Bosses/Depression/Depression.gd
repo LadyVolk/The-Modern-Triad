@@ -9,6 +9,7 @@ var target_destination
 var speed = 300
 var invincible = false
 var boss_state = 1
+var player = null
 
 export var health = 200
 
@@ -27,19 +28,15 @@ func _on_Timer_timeout():
 						Vector2(cos(angle_rad), sin(angle_rad)))
 			angle_rad += 2*PI/number
 	elif boss_state == 2:
-		
-		randomize()
-		var initial_angle =  rand_range(0, 2*PI)
-		for j in 10:
-			if invincible:
-				return
-			var angle_rad = initial_angle + j * PI/5
-			var number = 15
-			for _i in range(0, number):
-				emit_signal("depression_shoot", global_position, 
-							Vector2(cos(angle_rad), sin(angle_rad)))
-				angle_rad += 2*PI/number
-			yield(get_tree().create_timer(0.4), "timeout")
+		var direction = player.global_position - global_position
+		var number_shoots = 5
+		var shoot_spread = PI/4
+		var angle_each_ball = shoot_spread/ (number_shoots - 1)
+		var initial_angle = direction.angle() - shoot_spread/2
+		for i in number_shoots:
+			emit_signal("depression_shoot", global_position, 
+							Vector2(cos(initial_angle), sin(initial_angle)))
+			initial_angle += angle_each_ball
 			
 		
 	
@@ -122,7 +119,7 @@ func change_state(new_stage):
 	invincible = false
 	if new_stage == 2:
 		$Timer.start()
-		$Timer.wait_time = 9	
+		$Timer.wait_time = 3	
 	if new_stage == 3:
 		pass
 	
