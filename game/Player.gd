@@ -188,11 +188,14 @@ func melee_attack():
 	
 	animation.play("attack_"+get_direction_name(angle))
 	
+	AudioManager.play_sfx("melee_player")
+	
 	yield(animation, "animation_finished")
 	
 	animation.play("idle_"+get_direction_name(angle))
 	
 	attacking = false
+	
 	
 func get_direction_name(angle):
 	#top

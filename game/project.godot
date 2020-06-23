@@ -24,6 +24,10 @@ config/name="The Modern Triad"
 run/main_scene="res://Level.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+AudioManager="*res://AudioManager.tscn"
+
 [display]
 
 window/size/width=1920
