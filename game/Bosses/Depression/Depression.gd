@@ -1,3 +1,5 @@
+tool
+
 extends KinematicBody2D
 
 onready var timer = $Timer
@@ -66,6 +68,7 @@ func _physics_process(delta):
 			$TimerPosition.start()
 			target_destination = null
 	
+	
 func how_much_to_move(target_position, origin_position, how_much):
 	var difference = (target_position - origin_position)
 
@@ -123,8 +126,7 @@ func change_state(new_stage):
 	if new_stage == 3:
 		pass
 	
-	
-	
+
 	
 	
 	
