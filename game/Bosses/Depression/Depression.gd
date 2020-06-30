@@ -6,12 +6,14 @@ onready var timer = $Timer
 
 signal depression_shoot
 signal new_target_position
+signal create_delusion
 
 var target_destination
 var speed = 300
 var invincible = false
-var boss_state = 1
+var boss_state = 3
 var player = null
+var is_delusion = false
 
 export var health = 200
 
@@ -78,7 +80,7 @@ func how_much_to_move(target_position, origin_position, how_much):
 		return -difference
 	
 func _on_TimerPosition_timeout():
-	emit_signal("new_target_position")
+	emit_signal("new_target_position", self)
 	
 func take_damage(damage):
 	if invincible:
@@ -111,6 +113,8 @@ func play_idle():
 	$AnimationPlayer.play("idle")
 	
 func change_state(new_stage):
+	if is_delusion:
+		return
 	boss_state = new_stage
 	invincible = true
 	$AnimationPlayer.play("change_state")
@@ -127,9 +131,15 @@ func change_state(new_stage):
 		pass
 	
 
-	
-	
-	
-	
-	
-	
+func _on_TimerDelusion_timeout():
+	if is_delusion:
+		return
+	if boss_state == 3:
+		emit_signal("create_delusion", position)
+		
+		
+		
+		
+		
+		
+		

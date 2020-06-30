@@ -52,6 +52,8 @@ position = Vector2( 997.154, 350.976 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 467, 263 )
 
+[node name="Delusions" type="Node" parent="."]
+
 [node name="BoostSpawnAreaL" type="Area2D" parent="."]
 position = Vector2( 500, 500 )
 

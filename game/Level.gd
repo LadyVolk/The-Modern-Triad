@@ -4,6 +4,7 @@ const PROJECTILE = preload("res://Projectile.tscn")
 const SPEED_BOOST = preload("res://Bosses/Depression/SpeedBoost.tscn")
 const NEGATIVITY = preload("res://Bosses/Depression/Negativity.tscn")
 const FAKE_SPEED_BOOST = preload("res://Bosses/Depression/FakeSpeedBoost.tscn")
+const DELUSION_BOSS = preload("res://Bosses/Depression/Depression.tscn")
 
 onready var player = $Player
 onready var timer = $SpeedBoostTimer
@@ -17,6 +18,7 @@ func _ready():
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	boss.connect("depression_shoot", self, "boss_shoot")
 	boss.connect("new_target_position", self, "get_boss_position")
+	boss.connect("create_delusion", self, "create_delusion_boss")
 	create_boost()
 	create_boost()
 	boss.player = player
@@ -115,8 +117,8 @@ func random_position():
 						  rand_range(area.y-shape.extents.y, area.y+shape.extents.y))
 	return new_pos
 	
-func get_boss_position():
-	boss.target_destination = random_position()
+func get_boss_position(boss_):
+	boss_.target_destination = random_position()
 
 
 func _on_SpeedBoostTimer_timeout():
@@ -127,11 +129,17 @@ func _on_SpeedBoostTimer_timeout():
 		create_boost()
 	
 	
+func create_delusion_boss(position):
+	var boss_instance = DELUSION_BOSS.instance()
 	
-	
-	
-	
-	
+	$Delusions.add_child(boss_instance)
+	boss_instance.position = position
+	boss_instance.health = 1
+	boss_instance.is_delusion = true	
+	boss_instance.connect("depression_shoot", self, "boss_shoot")
+	boss_instance.connect("new_target_position", self, "get_boss_position")
+	boss_instance.player = player
+	boss_instance.boss_state = 3
 	
 	
 	
