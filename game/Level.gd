@@ -10,6 +10,8 @@ onready var player = $Player
 onready var timer = $SpeedBoostTimer
 onready var boss = $Depression
 
+var max_delusions = 3
+
 enum REGION {left, right}
 
 func _ready():
@@ -130,6 +132,9 @@ func _on_SpeedBoostTimer_timeout():
 	
 	
 func create_delusion_boss(position):
+	if $Delusions.get_child_count() >= max_delusions:
+		return
+	
 	var boss_instance = DELUSION_BOSS.instance()
 	
 	$Delusions.add_child(boss_instance)

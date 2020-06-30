@@ -11,7 +11,7 @@ signal create_delusion
 var target_destination
 var speed = 300
 var invincible = false
-var boss_state = 3
+var boss_state = 1
 var player = null
 var is_delusion = false
 
@@ -41,11 +41,17 @@ func _on_Timer_timeout():
 			emit_signal("depression_shoot", global_position, 
 							Vector2(cos(initial_angle), sin(initial_angle)))
 			initial_angle += angle_each_ball
-			
-		
 	
 	elif boss_state == 3:
-		pass	
+		var direction = player.global_position - global_position
+		var number_shoots = 5
+		var shoot_spread = PI/4
+		var angle_each_ball = shoot_spread/ (number_shoots - 1)
+		var initial_angle = direction.angle() - shoot_spread/2
+		for i in number_shoots:
+			emit_signal("depression_shoot", global_position, 
+							Vector2(cos(initial_angle), sin(initial_angle)))
+			initial_angle += angle_each_ball	
 	
 	
 func _physics_process(delta):
