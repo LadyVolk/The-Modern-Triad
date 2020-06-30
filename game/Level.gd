@@ -145,6 +145,6 @@ func create_delusion_boss(position):
 	boss_instance.connect("new_target_position", self, "get_boss_position")
 	boss_instance.player = player
 	boss_instance.boss_state = 3
-	
+	boss_instance.scale = boss.scale
 	
 	

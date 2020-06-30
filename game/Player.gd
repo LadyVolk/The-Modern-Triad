@@ -16,7 +16,7 @@ export var speed_slowdown = 30
 export var max_health = 100
 export var max_still_time = 0.2 
 export var still_damage = 30
-export var movement_heal = 5
+export var movement_heal = 8
 
 var health
 var dash_movement = Vector2()
@@ -27,7 +27,7 @@ var still_time = 0
 var attacking = false
 var stunned = false
 var player_hit_stun = 0.1
-var debug = true
+var debug = false
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -216,6 +216,8 @@ func get_direction_name(angle):
 	
 
 func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
+	if not $Damage.visible:
+		return
 	if(body.is_in_group("boss")):
 		body.take_damage(melee_damage)
 		$AnimationPlayer.stop(false)
