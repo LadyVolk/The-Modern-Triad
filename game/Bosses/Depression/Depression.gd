@@ -111,6 +111,7 @@ func take_damage(damage):
 	else:
 		die()
 	
+	AudioManager.play_sfx("damage_boss", 0.2)
 
 func die():
 	queue_free()

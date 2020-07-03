@@ -11,6 +11,7 @@ func _on_Area2D_body_entered(body):
 
 
 func activate(player):
+	AudioManager.play_sfx("fake_speed_boost", 0.1)
 	player.stun(2, false, false)
 	queue_free()
 	

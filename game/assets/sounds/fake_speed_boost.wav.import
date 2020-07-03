@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fake_speed_boost.wav-2f376a16f68486b16403bdd88ca07c95.sample"
+
+[deps]
+
+source_file="res://assets/sounds/fake_speed_boost.wav"
+dest_files=[ "res://.import/fake_speed_boost.wav-2f376a16f68486b16403bdd88ca07c95.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

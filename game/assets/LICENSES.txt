@@ -1,0 +1,20 @@
+player melee attack sound:
+remaxim
+https://opengameart.org/content/3-melee-sounds
+
+damage_boss.wav:
+spookymodem
+https://opengameart.org/content/goblin-death
+no changes made
+
+stun_sound:
+qubodup
+https://opengameart.org/content/punch
+
+speed_boost and fake_speed_boost:
+Michel Baradari
+https://opengameart.org/content/9-sci-fi-computer-sounds-and-beeps
+
+death sounds:
+Exewin
+https://opengameart.org/content/death-sounds-0

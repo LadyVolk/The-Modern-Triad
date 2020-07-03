@@ -155,6 +155,9 @@ func take_damage(damage):
 	
 	
 func die():
+	randomize()
+	var number = randi()%4+1
+	AudioManager.play_sfx("player_death_"+str(number), 0.2)
 	emit_signal("died")
 	queue_free()
 	
@@ -168,6 +171,8 @@ func stun(stun_time, direction, force):
 	if stunned:
 		return
 	
+	AudioManager.play_sfx("stun_sound", 0.2)
+	
 	stunned = true
 	
 	if direction:
@@ -176,7 +181,6 @@ func stun(stun_time, direction, force):
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
 	stunned = false
-	
 	
 func melee_attack():
 	if attacking:
