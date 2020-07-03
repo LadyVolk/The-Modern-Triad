@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="The Modern Triad"
-run/main_scene="res://Level.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
