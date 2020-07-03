@@ -18,6 +18,7 @@ func _ready():
 	player.connect("shoot", self, "player_shoot")
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
+	player.connect("died", self, "_on_player_died")
 	boss.connect("depression_shoot", self, "boss_shoot")
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("create_delusion", self, "create_delusion_boss")
@@ -146,5 +147,20 @@ func create_delusion_boss(position):
 	boss_instance.player = player
 	boss_instance.boss_state = 3
 	boss_instance.scale = boss.scale
+	
+	
+	
+	
+func _on_player_died():
+	$FadeScreen.fade_out()
+	
+	yield($FadeScreen, "fade_out_finished")
+	
+	get_tree().change_scene("res://Level.tscn")
+	
+	
+	
+	
+	
 	
 	

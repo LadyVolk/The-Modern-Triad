@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal shoot
 signal update_health
 signal set_HUD
+signal died
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
@@ -154,6 +155,7 @@ func take_damage(damage):
 	
 	
 func die():
+	emit_signal("died")
 	queue_free()
 	
 func heal(heal):
