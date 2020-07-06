@@ -10,7 +10,7 @@ onready var player = $Player
 onready var timer = $SpeedBoostTimer
 onready var boss = $Depression
 
-var max_delusions = 3
+var max_delusions = 2
 
 enum REGION {left, right}
 
@@ -125,7 +125,7 @@ func get_boss_position(boss_):
 
 
 func _on_SpeedBoostTimer_timeout():
-	if boss.boss_state == 3:
+	if boss.boss_state == 2:
 		create_boost()
 		create_fake_boost()
 	else:

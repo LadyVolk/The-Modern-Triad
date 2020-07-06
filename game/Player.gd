@@ -232,6 +232,8 @@ func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
 
 
 func knockback(direction, force):
+	take_damage(10)
+	
 	$Tween.interpolate_property(self, "knockback_movement", 
 								direction.normalized() * force, Vector2(),
 								0.4,Tween.TRANS_QUAD, Tween.EASE_OUT)

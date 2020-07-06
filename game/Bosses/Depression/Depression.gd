@@ -22,7 +22,6 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	
 	if boss_state == 1:
 		randomize()
 		var angle_rad =  rand_range(0, 2*PI)
@@ -135,7 +134,8 @@ func change_state(new_stage):
 		$Timer.start()
 		$Timer.wait_time = 3	
 	if new_stage == 3:
-		pass
+		$Timer.start()
+		$Timer.wait_time = 3
 	
 
 func _on_TimerDelusion_timeout():
