@@ -22,6 +22,8 @@ func _ready():
 
 
 func _on_Timer_timeout():
+	if not player:
+		return
 	if boss_state == 1:
 		randomize()
 		var angle_rad =  rand_range(0, 2*PI)

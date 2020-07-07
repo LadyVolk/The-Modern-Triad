@@ -152,10 +152,16 @@ func create_delusion_boss(position):
 	
 	
 func _on_player_died():
+	boss.player = null
+	
+	for child in $Delusions.get_children():
+		child.player = null
+	
 	$FadeScreen.fade_out()
 	
 	yield($FadeScreen, "fade_out_finished")
 	
+# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://Level.tscn")
 	
 	
