@@ -29,6 +29,7 @@ var attacking = false
 var stunned = false
 var player_hit_stun = 0.1
 var debug = false
+var stun_state
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -158,6 +159,10 @@ func die():
 	randomize()
 	var number = randi()%4+1
 	AudioManager.play_sfx("player_death_"+str(number), 0.2)
+	
+	if stun_state  and stun_state.is_valid():
+		stun_state.resume()
+	
 	emit_signal("died")
 	queue_free()
 	
@@ -181,6 +186,7 @@ func stun(stun_time, direction, force):
 	yield(get_tree().create_timer(stun_time), "timeout")
 	
 	stunned = false
+	stun_state = null
 	
 func melee_attack():
 	if attacking:

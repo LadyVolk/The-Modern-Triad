@@ -109,7 +109,7 @@ func boss_shoot(pos, direction):
 	new_projectile.position = pos
 	new_projectile.direction = direction
 	
-	new_projectile.connect("stun_player", player, "stun")
+	new_projectile.connect("stun_player", self, "stun_player")
 	
 	
 func random_position():
@@ -149,9 +149,8 @@ func create_delusion_boss(position):
 	boss_instance.scale = boss.scale
 	
 	
-	
-	
 func _on_player_died():
+	player = null
 	boss.player = null
 	
 	for child in $Delusions.get_children():
@@ -165,8 +164,16 @@ func _on_player_died():
 	get_tree().change_scene("res://Level.tscn")
 	
 	
-	
-	
-	
+func stun_player(stun_time, direction, force):
+	if player:
+		player.stun_state = player.stun(stun_time, direction, force)
+		print(player.stun_state)
+		
+		
+		
+		
+		
+		
+		
 	
 	
