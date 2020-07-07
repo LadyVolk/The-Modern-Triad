@@ -166,10 +166,7 @@ func _on_player_died():
 	
 func stun_player(stun_time, direction, force):
 	if player:
-		player.stun_state = player.stun(stun_time, direction, force)
-		print(player.stun_state)
-		
-		
+		player.stun_state = player.stun(stun_time, direction, force)	
 		
 		
 		

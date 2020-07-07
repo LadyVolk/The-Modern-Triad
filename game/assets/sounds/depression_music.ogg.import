@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/depression_music.ogg-e8d011e6cb7d4ca15086b01bb266ca30.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/depression_music.ogg"
+dest_files=[ "res://.import/depression_music.ogg-e8d011e6cb7d4ca15086b01bb266ca30.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -18,7 +18,7 @@ var is_delusion = false
 export var health = 200
 
 func _ready():
-	pass
+	AudioManager.play_sfx("depression_music", 0)
 
 
 func _on_Timer_timeout():
