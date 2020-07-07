@@ -91,6 +91,8 @@ func take_damage(damage):
 	if invincible:
 		return
 	
+	AudioManager.play_sfx("damage_boss", 0.2)
+	
 	health -= damage
 	
 	if health <= 200 and health > 140:
@@ -109,8 +111,7 @@ func take_damage(damage):
 			change_state(3)
 	else:
 		die()
-	
-	AudioManager.play_sfx("damage_boss", 0.2)
+
 
 func die():
 	queue_free()
