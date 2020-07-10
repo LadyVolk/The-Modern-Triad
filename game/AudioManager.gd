@@ -4,9 +4,9 @@ var which_stream = 1
 var max_sfx = 8
 
 const NORMAL_DB = 0
-const MUTE_DB = -40
-const FADEIN_SPEED = 80
-const FADEOUT_SPEED = 100
+const MUTE_DB = -60
+const FADEIN_SPEED = 60
+const FADEOUT_SPEED = 20
 
 const sfx_paths = {
 	"melee_player": preload("res://assets/sounds/melee sound.wav"),
