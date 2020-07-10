@@ -3,6 +3,10 @@ extends Node
 var which_stream = 1
 var max_sfx = 8
 
+const NORMAL_DB = 0
+const MUTE_DB = -40
+const FADEIN_SPEED = 80
+const FADEOUT_SPEED = 100
 
 const sfx_paths = {
 	"melee_player": preload("res://assets/sounds/melee sound.wav"),
@@ -45,18 +49,31 @@ func play_bgm(name):
 		push_error("sound does not exist:"+str(name))
 		assert(false)
 	
-	var player = get_node("BGMs/AudioStreamPlayerBGM")
+	stop_bgm()
 	
-	if player.playing:
-		stop_bgm()
-	
+	var player = get_node("BGMs/FadeIn")
 	player.stream = bgm_paths[name]
-	
+	player.volume_db = MUTE_DB
 	player.play()
+	var duration = abs(NORMAL_DB - MUTE_DB)/FADEIN_SPEED
+	$BGMs/Tween.interpolate_property(player, "volume_db", MUTE_DB, NORMAL_DB,
+									 duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$BGMs/Tween.start()
+	
+	
 	
 func stop_bgm():
-	$BGMs/AudioStreamPlayerBGM.stop()
-	
+	if $BGMs/FadeIn.playing:
+		$BGMs/FadeOut.stop()
+		$BGMs/FadeOut.stream = $BGMs/FadeIn.stream
+		$BGMs/FadeOut.volume_db = $BGMs/FadeIn.volume_db
+		var music_pos = $BGMs/FadeIn.get_playback_position()
+		$BGMs/FadeIn.stop()
+		$BGMs/FadeOut.play(music_pos)
+		var duration = abs(MUTE_DB - $BGMs/FadeOut.volume_db)/FADEOUT_SPEED
+		$BGMs/Tween.interpolate_property($BGMs/FadeOut, "volume_db", $BGMs/FadeOut.volume_db,
+										 MUTE_DB, duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
+		$BGMs/Tween.start()
 	
 	
 	
