@@ -17,7 +17,8 @@ const sfx_paths = {
 	"player_death_1": preload("res://assets/sounds/death_1.ogg"),
 	"player_death_2": preload("res://assets/sounds/death_2.ogg"),
 	"player_death_3": preload("res://assets/sounds/death_3.ogg"),
-	"player_death_4": preload("res://assets/sounds/death_4.ogg")
+	"player_death_4": preload("res://assets/sounds/death_4.ogg"),
+	"depression_change": preload("res://assets/sounds/depression_change.wav")
 	
 }
 const bgm_paths = {

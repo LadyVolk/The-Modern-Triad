@@ -124,6 +124,7 @@ func play_idle():
 func change_state(new_stage):
 	if is_delusion:
 		return
+	AudioManager.play_sfx("depression_change")
 	boss_state = new_stage
 	invincible = true
 	$AnimationPlayer.play("change_state")

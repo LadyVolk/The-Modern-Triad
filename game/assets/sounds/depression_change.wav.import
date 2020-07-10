@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/depression_change.wav-0d4455aa54073bd416e9c7d1ac15a295.sample"
+
+[deps]
+
+source_file="res://assets/sounds/depression_change.wav"
+dest_files=[ "res://.import/depression_change.wav-0d4455aa54073bd416e9c7d1ac15a295.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
