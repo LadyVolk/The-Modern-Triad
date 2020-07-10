@@ -25,6 +25,7 @@ func _ready():
 	create_boost()
 	create_boost()
 	boss.player = player
+	AudioManager.play_bgm("depression")
 	
 
 func player_shoot(pos, direction):
@@ -166,7 +167,7 @@ func _on_player_died():
 	
 func stun_player(stun_time, direction, force):
 	if player:
-		player.stun_state = player.stun(stun_time, direction, force)	
+		player.stun(stun_time, direction, force)	
 		
 		
 		

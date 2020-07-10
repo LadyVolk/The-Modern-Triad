@@ -13,8 +13,11 @@ const sfx_paths = {
 	"player_death_1": preload("res://assets/sounds/death_1.ogg"),
 	"player_death_2": preload("res://assets/sounds/death_2.ogg"),
 	"player_death_3": preload("res://assets/sounds/death_3.ogg"),
-	"player_death_4": preload("res://assets/sounds/death_4.ogg"),
-	"depression_music": preload("res://assets/sounds/depression_music.ogg")
+	"player_death_4": preload("res://assets/sounds/death_4.ogg")
+	
+}
+const bgm_paths = {
+	"depression": preload("res://assets/sounds/depression_music.ogg")
 }
 
 func play_sfx(name, pitch_var = false):
@@ -34,3 +37,26 @@ func play_sfx(name, pitch_var = false):
 		player.pitch_scale = rand_range(1-pitch_var, 1+pitch_var)
 		
 	player.play()
+
+
+func play_bgm(name):
+	if not bgm_paths.has(name):
+		push_error("sound does not exist:"+str(name))
+		assert(false)
+	
+	var player = get_node("BGMs/AudioStreamPlayerBGM")
+	
+	if player.playing:
+		stop_bgm()
+	
+	player.stream = bgm_paths[name]
+	
+	player.play()
+	
+func stop_bgm():
+	$BGMs/AudioStreamPlayerBGM.stop()
+	
+	
+	
+	
+	
