@@ -23,3 +23,6 @@ Depression music:
 Alexander Zhelanov
 https://opengameart.org/content/caves-of-sorrow
 
+menu_music:
+brandon75689
+https://opengameart.org/content/tragic-ambient-main-menu

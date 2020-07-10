@@ -2,8 +2,7 @@ extends Control
 
 
 func _ready():
-	pass 
-
+	AudioManager.play_bgm("menu")
 
 
 func _on_Start_pressed():
