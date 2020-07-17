@@ -937,19 +937,6 @@ vframes = 4
 hframes = 10
 frame = 9
 
-[node name="Label" type="Label" parent="."]
-visible = false
-margin_left = 68.0
-margin_top = 22.0
-margin_right = 189.0
-margin_bottom = 53.0
-text = "life is too good
-"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.0268745, -0.458797 )
@@ -986,4 +973,8 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
 position = Vector2( -0.184013, 13.7276 )
 shape = SubResource( 2 )
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
 [connection signal="body_shape_entered" from="Damage" to="." method="_on_Damage_body_shape_entered"]

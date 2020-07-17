@@ -18,12 +18,12 @@ export var max_health = 100
 export var max_still_time = 0.2 
 export var still_damage = 30
 export var movement_heal = 8
+export var mode = "depression"
 
 var health
 var dash_movement = Vector2()
 var movement = Vector2()
 var knockback_movement = Vector2()
-var mode = "depression"
 var still_time = 0
 var attacking = false
 var stunned = false
@@ -41,7 +41,6 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
-	$Label.text = "life is great"
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
@@ -63,12 +62,12 @@ func _process(delta):
 		apply_movement(mov_vector * speed * delta)
 	else:
 		apply_friction(speed*2 * delta)
-		
-		still_time += delta
-		if still_time >= max_still_time:
-			take_damage(still_damage * delta)
+		if mode == "depression":
+			still_time += delta
+			if still_time >= max_still_time:
+				take_damage(still_damage * delta)
 	
-	if (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
+	if mode == "depression" and (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
 		and not stunned:
 		still_time = 0
 		
@@ -80,20 +79,23 @@ func _process(delta):
 	
 	update_player_sprite()
 	
-	#slowdown by depression
-	max_speed = max(min_speed, max_speed - speed_slowdown * delta)
+	if mode == "depression":
+		#slowdown by depression
+		max_speed = max(min_speed, max_speed - speed_slowdown * delta)
 	
 
 func _input(event):
-	if event.is_action_pressed("player_dash"):
-		dash()
-	elif event.is_action_pressed("shoot"):
-		emit_signal("shoot", position, get_player_direction())
-	elif event.is_action_pressed("melee_attack"):
-		melee_attack()
-		
+	if mode == "depression":
+		if event.is_action_pressed("player_dash"):
+			dash()
+		elif event.is_action_pressed("melee_attack"):
+			melee_attack()
+		if mode == "anxiety":
+			if event.is_action_pressed("shoot"):
+				emit_signal("shoot", position, get_player_direction())
+				
+				
 func get_player_direction():
-	
 	var mouse_pos = get_viewport().get_mouse_position()
 	var center_player = global_position
 	
