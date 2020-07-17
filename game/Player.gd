@@ -97,7 +97,7 @@ func _input(event):
 				
 func get_player_direction():
 	var mouse_pos = get_viewport().get_mouse_position()
-	var center_player = global_position
+	var center_player = get_global_transform_with_canvas().origin
 	
 	return  (mouse_pos - center_player).normalized()
 	
