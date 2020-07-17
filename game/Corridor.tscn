@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 20 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 960, 20 )
+
+[node name="Corridor" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 968.678, 533.816 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="NorthWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 960, 470 )
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="Walls/NorthWall"]
+shape = SubResource( 1 )
+
+[node name="SouthWall" type="StaticBody2D" parent="Walls"]
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="Walls/SouthWall"]
+position = Vector2( 960, 600 )
+shape = SubResource( 2 )
