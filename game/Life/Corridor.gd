@@ -5,7 +5,8 @@ func _ready():
 	pass
 
 
-func _process(dt):
+# warning-ignore:unused_argument
+func _process(_dt):
 	#move walls with player
 	$Walls/NorthWall.position.x = $Player.position.x
 	$Walls/SouthWall.position.x = $Player.position.x
@@ -16,4 +17,7 @@ func _process(dt):
 			tile.rect_position.x += 1920
 		elif tile.rect_position.x - $Player.position.x > 1000:
 			tile.rect_position.x -= 1920
-		
+	if $Mirror.position.x - $Player.position.x < -1000:
+		$Mirror.position.x += 1920
+	elif $Mirror.position.x - $Player.position.x > 1000:
+		$Mirror.position.x -= 1920
