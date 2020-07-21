@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://Projectile.gd"
+"path": "res://PlayerStuff/Projectile.gd"
 } ]
 _global_script_class_icons={
 "Projectile": ""
@@ -21,12 +21,12 @@ _global_script_class_icons={
 [application]
 
 config/name="The Modern Triad"
-run/main_scene="res://Menu.tscn"
+run/main_scene="res://Infra/Menu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-AudioManager="*res://AudioManager.tscn"
+AudioManager="*res://Infra/AudioManager.tscn"
 
 [display]
 

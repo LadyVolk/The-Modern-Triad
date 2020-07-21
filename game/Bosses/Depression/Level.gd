@@ -1,6 +1,6 @@
 extends Node2D
 
-const PROJECTILE = preload("res://Projectile.tscn")
+const PROJECTILE = preload("res://PlayerStuff/Projectile.tscn")
 const SPEED_BOOST = preload("res://Bosses/Depression/SpeedBoost.tscn")
 const NEGATIVITY = preload("res://Bosses/Depression/Negativity.tscn")
 const FAKE_SPEED_BOOST = preload("res://Bosses/Depression/FakeSpeedBoost.tscn")

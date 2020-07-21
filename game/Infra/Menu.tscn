@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/MenuFont.tres" type="DynamicFont" id=1]
-[ext_resource path="res://Menu.gd" type="Script" id=2]
+[ext_resource path="res://Infra/Menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/MenuFont.tres" type="DynamicFont" id=2]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -10,7 +10,7 @@ margin_left = 1.58667
 margin_top = 1.58664
 margin_right = 1.58667
 margin_bottom = 1.58667
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,7 +32,7 @@ __meta__ = {
 [node name="Start" type="Button" parent="VBoxContainer"]
 margin_right = 364.0
 margin_bottom = 92.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "START"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -42,7 +42,7 @@ __meta__ = {
 margin_top = 142.0
 margin_right = 364.0
 margin_bottom = 234.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "QUIT LIFE"
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

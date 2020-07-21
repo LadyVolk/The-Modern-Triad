@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Level.gd" type="Script" id=2]
-[ext_resource path="res://GameHUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Bosses/Depression/Level.gd" type="Script" id=2]
+[ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Depression/Depression.tscn" type="PackedScene" id=4]
-[ext_resource path="res://FadeScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 300, 350 )
