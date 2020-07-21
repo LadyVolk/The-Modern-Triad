@@ -30,6 +30,7 @@ var stunned = false
 var player_hit_stun = 0.1
 var debug = false
 var died = false
+var sprite_direction = "bottom"
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -44,6 +45,11 @@ func _ready():
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
+	if mode == "depression":
+		$Camera.queue_free()
+	elif mode == "transition":
+		$Camera.current = true
+		$Camera.zoom = Vector2(0.5, 0.5)
 func _process(delta):
 	
 	var mov_vector = Vector2(0, 0)
@@ -130,18 +136,19 @@ func update_player_sprite():
 	if attacking:
 		return
 		
-	var angle = rad2deg(get_player_direction().angle())	
-	
-	if angle < 0:
-		angle += 360
-	
-	var direction = get_direction_name(angle)
+	#var angle = rad2deg(get_player_direction().angle())	
 	
 	if movement.length() <= 0.1:
-		animation.play("idle_"+direction)
-	else: 
-		animation.play("running_"+direction)
+		animation.play("idle_"+sprite_direction)
+	else:
+		var angle = rad2deg(movement.angle())
 	
+		if angle < 0:
+			angle += 360
+		
+		sprite_direction = get_direction_name(angle)
+		animation.play("running_"+sprite_direction)
+		
 	
 	
 func take_damage(damage):
