@@ -7,4 +7,4 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("player"):
-		print("why god")
+		get_tree().change_scene("res://Bosses/Depression/Level.tscn")

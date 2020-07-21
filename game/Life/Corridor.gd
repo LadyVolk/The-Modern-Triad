@@ -1,5 +1,6 @@
 extends Node2D
 
+const PAST_DISTANCE = 300
 
 func _ready():
 	pass
@@ -21,3 +22,8 @@ func _process(_dt):
 		$Mirror.position.x += 1920
 	elif $Mirror.position.x - $Player.position.x > 1000:
 		$Mirror.position.x -= 1920
+
+	#move past
+	var past = $Walls/PastWall.position.x - $Player.position.x
+	if past < -PAST_DISTANCE:
+		$Walls/PastWall.position.x = $Player.position.x - PAST_DISTANCE 
