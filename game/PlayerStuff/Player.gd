@@ -263,4 +263,14 @@ func knockback(direction, force):
 								0.4,Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()							
 	
-
+func change_cam_limit(pos):
+	$Camera.limit_left = pos
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,9 +1,12 @@
 extends Node2D
 
-const PAST_DISTANCE = 300
+const PAST_DISTANCE = 450
 
 func _ready():
-	pass
+	$Walls/PastWall.position.x = $Player.position.x - PAST_DISTANCE 
+		
+	$Player.change_cam_limit($Walls/PastWall.position.x)
+
 
 
 # warning-ignore:unused_argument
@@ -27,3 +30,5 @@ func _process(_dt):
 	var past = $Walls/PastWall.position.x - $Player.position.x
 	if past < -PAST_DISTANCE:
 		$Walls/PastWall.position.x = $Player.position.x - PAST_DISTANCE 
+		
+	$Player.change_cam_limit($Walls/PastWall.position.x)
