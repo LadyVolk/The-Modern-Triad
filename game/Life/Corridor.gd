@@ -7,7 +7,7 @@ func _ready():
 		
 	$Player.change_cam_limit($Walls/PastWall.position.x)
 
-
+	$Mirror.connect("entered_mirror", self, "mirror_enter")
 
 # warning-ignore:unused_argument
 func _process(_dt):
@@ -32,3 +32,17 @@ func _process(_dt):
 		$Walls/PastWall.position.x = $Player.position.x - PAST_DISTANCE 
 		
 	$Player.change_cam_limit($Walls/PastWall.position.x)
+
+
+func mirror_enter():
+	$Player.disable = true
+	$Tween.interpolate_property($FadeLayer/ColorRect, "color", Color(0, 0, 0, 0),
+								Color(0, 0, 0, 1), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+	yield($Tween, "tween_completed")
+	
+	Global.change_scene(2, "res://Bosses/Depression/Level.tscn")
+		
+		
+		
+		

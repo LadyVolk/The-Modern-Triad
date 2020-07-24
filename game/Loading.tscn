@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Loading.gd" type="Script" id=1]
+
+[node name="Loading" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = 953.672
+margin_top = 511.075
+margin_right = 993.672
+margin_bottom = 551.075
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -31,6 +31,7 @@ var player_hit_stun = 0.1
 var debug = false
 var died = false
 var sprite_direction = "bottom"
+var disable = false
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -51,6 +52,8 @@ func _ready():
 		$Camera.current = true
 		$Camera.zoom = Vector2(0.5, 0.5)
 func _process(delta):
+	if disable:
+		return
 	
 	var mov_vector = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):

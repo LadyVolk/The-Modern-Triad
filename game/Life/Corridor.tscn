@@ -290,3 +290,15 @@ mode = "transsition"
 
 [node name="Mirror" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1521.28, 492.073 )
+
+[node name="FadeLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="FadeLayer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.027451, 0.027451, 0.027451, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]

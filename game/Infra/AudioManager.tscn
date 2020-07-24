@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Infra/AudioManager.gd" type="Script" id=1]
 
-
 [node name="AudioManager" type="Node"]
 script = ExtResource( 1 )
 
