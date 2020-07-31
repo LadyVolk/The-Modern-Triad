@@ -7,6 +7,7 @@ func _ready():
 		
 	$Player.change_cam_limit($Walls/PastWall.position.x)
 
+# warning-ignore:return_value_discarded
 	$Mirror.connect("entered_mirror", self, "mirror_enter")
 
 # warning-ignore:unused_argument
@@ -36,8 +37,8 @@ func _process(_dt):
 
 func mirror_enter():
 	$Player.disable = true
-	$Tween.interpolate_property($FadeLayer/ColorRect, "color", Color(0, 0, 0, 0),
-								Color(0, 0, 0, 1), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.interpolate_property($FadeLayer/ColorRect.get_material(), "shader_param/amount", 
+								0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	
