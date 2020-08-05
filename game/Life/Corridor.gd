@@ -37,7 +37,7 @@ func _process(_dt):
 
 func mirror_enter():
 	$Player.disable = true
-	$Tween.interpolate_property($FadeLayer/ColorRect.get_material(), "shader_param/amount", 
+	$Tween.interpolate_property($ShaderLayer/Fade.get_material(), "shader_param/amount", 
 								0.0, 1.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween, "tween_completed")

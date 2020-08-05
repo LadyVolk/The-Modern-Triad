@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Life/Corridor.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/images/corridor_floor.png" type="Texture" id=3]
 [ext_resource path="res://Life/Mirror.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
+[ext_resource path="res://Life/base_fade.shader" type="Shader" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 20 )
@@ -15,27 +16,34 @@ extents = Vector2( 960, 20 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 10, 68.1573 )
 
-[sub_resource type="Shader" id=4]
-code = "shader_type canvas_item;
-
-uniform float amount : hint_range(0, 1);
-uniform sampler2D noise_texture;
-
-void fragment(){	
-	vec4 noise_pixel_color = texture(noise_texture, UV);
-	
-	float noise_color = 1.0 - noise_pixel_color.r;
-	
-	float alpha = smoothstep(0.0, noise_color, amount);
-	
-	COLOR = vec4(0.0, 0.0, 0.0, alpha);
-
-}"
-
 [sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 4 )
+shader = ExtResource( 6 )
 shader_param/amount = 0.0
 shader_param/noise_texture = ExtResource( 5 )
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform float rangex: hint_range(0.0, 1920.0);
+uniform float rangey: hint_range(0.0, 1080.0); 
+uniform bool on;
+
+void fragment(){
+	if(on){
+		//do stuff
+	}
+	else{
+		COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
+	}
+	
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/rangex = null
+shader_param/rangey = null
+shader_param/on = null
 
 [node name="Corridor" type="Node2D"]
 script = ExtResource( 1 )
@@ -314,13 +322,21 @@ mode = "transsition"
 [node name="Mirror" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1521.28, 492.073 )
 
-[node name="FadeLayer" type="CanvasLayer" parent="."]
+[node name="ShaderLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="FadeLayer"]
+[node name="Fade" type="ColorRect" parent="ShaderLayer"]
 material = SubResource( 7 )
 margin_top = 3.0
 margin_right = 1920.0
 margin_bottom = 1083.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PixelEffect" type="ColorRect" parent="ShaderLayer"]
+material = SubResource( 9 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
