@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Life/Corridor.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/images/corridor_floor.png" type="Texture" id=3]
 [ext_resource path="res://Life/Mirror.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 20 )
@@ -23,27 +24,18 @@ uniform sampler2D noise_texture;
 void fragment(){	
 	vec4 noise_pixel_color = texture(noise_texture, UV);
 	
-	float noise_color = noise_pixel_color.r;
+	float noise_color = 1.0 - noise_pixel_color.r;
 	
-	float change_color = smoothstep(0.0, noise_color, amount);
+	float alpha = smoothstep(0.0, noise_color, amount);
 	
-	COLOR = vec4(0.0, 0.0, 0.0, change_color);
+	COLOR = vec4(0.0, 0.0, 0.0, alpha);
+
 }"
-
-[sub_resource type="OpenSimplexNoise" id=5]
-seed = 1
-octaves = 2
-lacunarity = 0.1
-
-[sub_resource type="NoiseTexture" id=6]
-width = 1920
-height = 1080
-noise = SubResource( 5 )
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = SubResource( 4 )
 shader_param/amount = 0.0
-shader_param/noise_texture = SubResource( 6 )
+shader_param/noise_texture = ExtResource( 5 )
 
 [node name="Corridor" type="Node2D"]
 script = ExtResource( 1 )
@@ -326,7 +318,11 @@ position = Vector2( 1521.28, 492.073 )
 
 [node name="ColorRect" type="ColorRect" parent="FadeLayer"]
 material = SubResource( 7 )
+margin_top = 3.0
 margin_right = 1920.0
-margin_bottom = 1080.0
+margin_bottom = 1083.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Tween" type="Tween" parent="."]
