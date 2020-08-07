@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Life/Corridor.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
@@ -16,34 +16,89 @@ extents = Vector2( 960, 20 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 10, 68.1573 )
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 6 )
 shader_param/amount = 0.0
 shader_param/noise_texture = ExtResource( 5 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 
 uniform float rangex: hint_range(0.0, 1920.0);
 uniform float rangey: hint_range(0.0, 1080.0); 
 uniform bool on;
+uniform float square_range = 10.0;
 
 void fragment(){
 	if(on){
-		//do stuff
+		float square_u = square_range/rangex;
+		float square_v = square_range/rangey;
+		vec2 block_uv = vec2(square_u*(floor(SCREEN_UV.x/square_u)), 
+							 square_v*(floor(SCREEN_UV.y/square_v)));
+		COLOR = texture(SCREEN_TEXTURE, block_uv);
 	}
 	else{
 		COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
 	}
-	
-	
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
-shader_param/rangex = null
-shader_param/rangey = null
-shader_param/on = null
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/rangex = 1920.0
+shader_param/rangey = 1080.0
+shader_param/on = false
+shader_param/square_range = 1.0
+
+[sub_resource type="Animation" id=7]
+resource_name = "PixelEffect"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/rangex")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 500.0, 1920.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/rangey")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 300.0, 1080.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/on")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:material:shader_param/square_range")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 10.0, 1.0 ]
+}
 
 [node name="Corridor" type="Node2D"]
 script = ExtResource( 1 )
@@ -325,7 +380,7 @@ position = Vector2( 1521.28, 492.073 )
 [node name="ShaderLayer" type="CanvasLayer" parent="."]
 
 [node name="Fade" type="ColorRect" parent="ShaderLayer"]
-material = SubResource( 7 )
+material = SubResource( 4 )
 margin_top = 3.0
 margin_right = 1920.0
 margin_bottom = 1083.0
@@ -334,11 +389,14 @@ __meta__ = {
 }
 
 [node name="PixelEffect" type="ColorRect" parent="ShaderLayer"]
-material = SubResource( 9 )
+material = SubResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShaderLayer/PixelEffect"]
+anims/PixelEffect = SubResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]
