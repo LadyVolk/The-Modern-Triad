@@ -43,7 +43,4 @@ func mirror_enter():
 	yield($Tween, "tween_completed")
 	
 	Global.change_scene(2, "res://Bosses/Depression/Level.tscn")
-		
-		
-		
-		
+	

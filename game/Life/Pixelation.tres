@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float rangex: hint_range(0.0, 1920.0);
+uniform float rangey: hint_range(0.0, 1080.0); 
+uniform bool on;
+uniform float square_range = 10.0;
+
+void fragment(){
+	if(on){
+		float square_u = square_range/rangex;
+		float square_v = square_range/rangey;
+		vec2 block_uv = vec2(square_u*(floor(SCREEN_UV.x/square_u)), 
+							 square_v*(floor(SCREEN_UV.y/square_v)));
+		COLOR = texture(SCREEN_TEXTURE, block_uv);
+	}
+	else{
+		COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
+	}
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/rangex = 500.0
+shader_param/rangey = 300.0
+shader_param/on = true
+shader_param/square_range = 10.0

@@ -22,7 +22,7 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	if not player:
+	if not player or Global.pixel_effect_on:
 		return
 	if boss_state == 1:
 		randomize()

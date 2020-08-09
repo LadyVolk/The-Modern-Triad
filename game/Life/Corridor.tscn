@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Life/Corridor.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Life/Mirror.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
 [ext_resource path="res://Life/base_fade.shader" type="Shader" id=6]
+[ext_resource path="res://Life/Pixelation.tres" type="Material" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 20 )
@@ -20,34 +21,6 @@ extents = Vector2( 10, 68.1573 )
 shader = ExtResource( 6 )
 shader_param/amount = 0.0
 shader_param/noise_texture = ExtResource( 5 )
-
-[sub_resource type="Shader" id=5]
-code = "shader_type canvas_item;
-
-uniform float rangex: hint_range(0.0, 1920.0);
-uniform float rangey: hint_range(0.0, 1080.0); 
-uniform bool on;
-uniform float square_range = 10.0;
-
-void fragment(){
-	if(on){
-		float square_u = square_range/rangex;
-		float square_v = square_range/rangey;
-		vec2 block_uv = vec2(square_u*(floor(SCREEN_UV.x/square_u)), 
-							 square_v*(floor(SCREEN_UV.y/square_v)));
-		COLOR = texture(SCREEN_TEXTURE, block_uv);
-	}
-	else{
-		COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
-shader_param/rangex = 1920.0
-shader_param/rangey = 1080.0
-shader_param/on = false
-shader_param/square_range = 1.0
 
 [sub_resource type="Animation" id=7]
 resource_name = "PixelEffect"
@@ -389,7 +362,8 @@ __meta__ = {
 }
 
 [node name="PixelEffect" type="ColorRect" parent="ShaderLayer"]
-material = SubResource( 6 )
+visible = false
+material = ExtResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {

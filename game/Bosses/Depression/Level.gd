@@ -26,7 +26,12 @@ func _ready():
 	create_boost()
 	boss.player = player
 	AudioManager.play_bgm("depression")
-	
+
+	$ColorRect/AnimationPlayer.play("PixelEffect")
+
+	Global.pixel_effect_on = true
+
+	##yield($ColorRect/AnimationPlayer.play("PixelEffect"), "animation_finished")
 
 func player_shoot(pos, direction):
 	var new_projectile = PROJECTILE.instance()
@@ -168,10 +173,7 @@ func _on_player_died():
 func stun_player(stun_time, direction, force):
 	if player:
 		player.stun(stun_time, direction, force)	
-		
-		
-		
-		
-		
-	
-	
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	Global.pixel_effect_on = false

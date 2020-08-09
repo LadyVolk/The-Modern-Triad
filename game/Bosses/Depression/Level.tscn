@@ -1,16 +1,68 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bosses/Depression/Level.gd" type="Script" id=2]
 [ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Depression/Depression.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 300, 350 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 580.292, 286.836 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "PixelEffect"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/rangex")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 500.0, 1920.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/rangey")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 300.0, 1080.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/on")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:material:shader_param/square_range")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 10.0, 1.0 ]
+}
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -74,4 +126,18 @@ position = Vector2( 965, 500 )
 shape = SubResource( 2 )
 
 [node name="FadeScreen" parent="." instance=ExtResource( 5 )]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+anims/PixelEffect = SubResource( 3 )
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
+[connection signal="animation_finished" from="ColorRect/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
