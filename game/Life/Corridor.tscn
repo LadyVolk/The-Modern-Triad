@@ -22,7 +22,7 @@ shader = ExtResource( 6 )
 shader_param/amount = 0.0
 shader_param/noise_texture = ExtResource( 5 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "PixelEffect"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/rangex")
@@ -371,6 +371,6 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ShaderLayer/PixelEffect"]
-anims/PixelEffect = SubResource( 7 )
+anims/PixelEffect = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]

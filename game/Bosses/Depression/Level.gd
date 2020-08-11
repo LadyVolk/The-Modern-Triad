@@ -27,9 +27,16 @@ func _ready():
 	boss.player = player
 	AudioManager.play_bgm("depression")
 
-	$ColorRect/AnimationPlayer.play("PixelEffect")
+	Global.freeze = true
+	
+	$Tween.interpolate_property($Shaders/FadeIn.get_material(), "shader_param/amount", 
+								1.0, 0.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
+	$Tween.start()
+	
+	yield($Tween, "tween_completed")
+	
+	$Shaders/Pixel/AnimationPlayer.play("PixelEffect")
 
-	Global.pixel_effect_on = true
 
 	##yield($ColorRect/AnimationPlayer.play("PixelEffect"), "animation_finished")
 
@@ -175,5 +182,5 @@ func stun_player(stun_time, direction, force):
 		player.stun(stun_time, direction, force)	
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
-	Global.pixel_effect_on = false
+func _on_AnimationPlayer_animation_finished(_anim_name):
+	Global.freeze = false

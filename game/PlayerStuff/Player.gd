@@ -52,7 +52,7 @@ func _ready():
 		$Camera.current = true
 		$Camera.zoom = Vector2(0.5, 0.5)
 func _process(delta):
-	if disable or Global.pixel_effect_on:
+	if disable or Global.freeze:
 		return
 	
 	var mov_vector = Vector2(0, 0)

@@ -2,7 +2,7 @@ extends Node
 
 var time
 var which_scene
-var pixel_effect_on = false
+var freeze = false
 
 func change_scene(_time, _which_scene):
 	

@@ -12,12 +12,3 @@ color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ColorRect2" type="ColorRect" parent="."]
-margin_left = 953.672
-margin_top = 511.075
-margin_right = 993.672
-margin_bottom = 551.075
-__meta__ = {
-"_edit_use_anchors_": false
-}

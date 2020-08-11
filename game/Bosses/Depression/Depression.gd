@@ -1,5 +1,3 @@
-tool
-
 extends KinematicBody2D
 
 onready var timer = $Timer
@@ -22,7 +20,7 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	if not player or Global.pixel_effect_on:
+	if not player or Global.freeze:
 		return
 	if boss_state == 1:
 		randomize()
@@ -56,7 +54,7 @@ func _on_Timer_timeout():
 	
 	
 func _physics_process(delta):
-	if target_destination and not invincible:
+	if target_destination and not invincible and not Global.freeze:
 		var how_much = delta*speed
 		
 		var move_x = how_much_to_move(target_destination.x, position.x, how_much)

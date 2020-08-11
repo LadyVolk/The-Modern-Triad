@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bosses/Depression/Level.gd" type="Script" id=2]
@@ -6,12 +6,35 @@
 [ext_resource path="res://Bosses/Depression/Depression.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
+[ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 300, 350 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 580.292, 286.836 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform float amount : hint_range(0, 1);
+uniform sampler2D noise_texture;
+
+void fragment(){	
+	vec4 noise_pixel_color = texture(noise_texture, UV);
+	
+	float noise_color = 1.0 - noise_pixel_color.r;
+	
+	float alpha = smoothstep(0.0, noise_color, amount);
+	
+	COLOR = vec4(0.0, 0.0, 0.0, alpha);
+
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 6 )
+shader_param/amount = null
+shader_param/noise_texture = ExtResource( 7 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "PixelEffect"
@@ -127,7 +150,23 @@ shape = SubResource( 2 )
 
 [node name="FadeScreen" parent="." instance=ExtResource( 5 )]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Shaders" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="FadeIn" type="ColorRect" parent="Shaders"]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pixel" type="ColorRect" parent="Shaders"]
 material = ExtResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -137,7 +176,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Shaders/Pixel"]
 anims/PixelEffect = SubResource( 3 )
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
-[connection signal="animation_finished" from="ColorRect/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
