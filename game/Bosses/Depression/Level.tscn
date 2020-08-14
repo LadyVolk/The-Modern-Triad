@@ -14,7 +14,7 @@ extents = Vector2( 300, 350 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 580.292, 286.836 )
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 
 uniform float amount : hint_range(0, 1);
@@ -31,13 +31,12 @@ void fragment(){
 
 }"
 
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 6 )
-shader_param/amount = null
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/amount = 1.0
 shader_param/noise_texture = ExtResource( 7 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "PixelEffect"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/rangex")
 tracks/0/interp = 1
@@ -156,9 +155,7 @@ shape = SubResource( 2 )
 layer = 2
 
 [node name="FadeIn" type="ColorRect" parent="Shaders"]
-material = SubResource( 5 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+material = SubResource( 4 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
@@ -177,6 +174,6 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Shaders/Pixel"]
-anims/PixelEffect = SubResource( 3 )
+anims/PixelEffect = SubResource( 5 )
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
 [connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
