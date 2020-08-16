@@ -18,7 +18,7 @@ export var max_health = 100
 export var max_still_time = 0.2 
 export var still_damage = 30
 export var movement_heal = 8
-export var mode = "depression"
+export var mode = "anxiety"
 
 var health
 var dash_movement = Vector2()
@@ -46,7 +46,7 @@ func _ready():
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
-	if mode == "depression":
+	if mode == "depression" or mode == "anxiety":
 		$Camera.queue_free()
 	elif mode == "transition":
 		$Camera.current = true

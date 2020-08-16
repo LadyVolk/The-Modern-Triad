@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Bosses/Anxiety/Anxiety.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/depression/depression_stage_1_idle.png" type="Texture" id=2]
@@ -128,12 +128,15 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="CircleShape2D" id=5]
+radius = 12.7982
+
 [node name="Anxiety" type="KinematicBody2D" groups=[
 "boss",
 ]]
 position = Vector2( 1, 0 )
-collision_layer = 16
-collision_mask = 4
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -146,6 +149,7 @@ position = Vector2( 1.19745, -2.99368 )
 shape = SubResource( 1 )
 
 [node name="TimerPosition" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 autostart = true
 
@@ -156,4 +160,14 @@ anims/idle = SubResource( 3 )
 anims/stun = SubResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Attack_area" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_area"]
+position = Vector2( 27.1321, -27.1321 )
+scale = Vector2( 10, 10 )
+shape = SubResource( 5 )
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
+[connection signal="body_entered" from="Attack_area" to="." method="_on_Attack_area_body_entered"]

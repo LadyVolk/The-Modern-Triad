@@ -9,10 +9,10 @@
 [ext_resource path="res://Bosses/Anxiety/Anxiety.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 300, 350 )
+extents = Vector2( 310.521, 350 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 900, 460 )
+extents = Vector2( 700, 300 )
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -112,7 +112,7 @@ position = Vector2( 0, 1080 )
 polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 467, 263 )
+position = Vector2( 400, 500 )
 
 [node name="BoostSpawnAreaL" type="Area2D" parent="."]
 position = Vector2( 500, 500 )
@@ -127,10 +127,10 @@ position = Vector2( 1500, 500 )
 shape = SubResource( 1 )
 
 [node name="BossArea" type="Area2D" parent="."]
-position = Vector2( 0, 500 )
+position = Vector2( 1000, 500 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossArea"]
-position = Vector2( 960.176, 28.6395 )
+position = Vector2( -3.68329, 1.22772 )
 shape = SubResource( 2 )
 
 [node name="FadeScreen" parent="." instance=ExtResource( 4 )]
@@ -141,7 +141,6 @@ shape = SubResource( 2 )
 layer = 2
 
 [node name="FadeIn" type="ColorRect" parent="Shaders"]
-visible = false
 material = SubResource( 4 )
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -151,7 +150,6 @@ __meta__ = {
 }
 
 [node name="Pixel" type="ColorRect" parent="Shaders"]
-visible = false
 material = ExtResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -167,5 +165,6 @@ anims/PixelEffect = SubResource( 5 )
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="Anxiety" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1724.87, 510.862 )
+position = Vector2( 1026.29, 426.148 )
+scale = Vector2( 0.2, 0.2 )
 [connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

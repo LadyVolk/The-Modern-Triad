@@ -8,6 +8,8 @@ onready var boss = $Anxiety
 
 var max_delusions = 2
 
+var times_moved = 0
+
 enum REGION {left, right}
 
 func _ready():
@@ -16,6 +18,7 @@ func _ready():
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
 	boss.connect("new_target_position", self, "get_boss_position")
+	boss.connect("anxiety_attack", player, "take_damage")
 	boss.player = player
 	##AudioManager.play_bgm("depression")
 
@@ -38,6 +41,10 @@ func player_shoot(pos, direction):
 	
 	
 func random_position():
+	times_moved += 1
+	if times_moved >= 5:
+		times_moved = 0
+		return player.position
 	randomize()
 	var shape = $BossArea/CollisionShape2D.shape
 	var area = $BossArea.position

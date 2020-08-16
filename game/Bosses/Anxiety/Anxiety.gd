@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 
 signal new_target_position
+signal anxiety_attack
+
 
 var target_destination
 var speed = 1000
@@ -10,6 +12,7 @@ var boss_state = 1
 var player = null
 
 export var health = 200
+
 
 func _ready():
 	pass
@@ -37,6 +40,7 @@ func _physics_process(delta):
 			$TimerPosition.start()
 			target_destination = null
 	
+
 	
 func how_much_to_move(target_position, origin_position, how_much):
 	var difference = (target_position - origin_position)
@@ -82,9 +86,9 @@ func play_idle():
 	$AnimationPlayer.play("idle")
 	
 func change_state(new_stage):
-	pass
+	pass	
 	
-		
-		
-		
-		
+
+func _on_Attack_area_body_entered(body):
+	if body.is_in_group("player"):
+		emit_signal("anxiety_attack", 25)
