@@ -38,8 +38,6 @@ func _ready():
 	$Shaders/Pixel/AnimationPlayer.play("PixelEffect")
 
 
-	##yield($ColorRect/AnimationPlayer.play("PixelEffect"), "animation_finished")
-
 func player_shoot(pos, direction):
 	var new_projectile = PROJECTILE.instance()
 	$Projectiles.add_child(new_projectile)
