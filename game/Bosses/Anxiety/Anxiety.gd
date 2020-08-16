@@ -1,11 +1,10 @@
 extends KinematicBody2D
 
-onready var timer = $Timer
 
 signal new_target_position
 
 var target_destination
-var speed = 300
+var speed = 1000
 var invincible = false
 var boss_state = 1
 var player = null

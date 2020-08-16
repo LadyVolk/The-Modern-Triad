@@ -37,7 +37,6 @@ func player_shoot(pos, direction):
 	new_projectile.direction = direction
 	
 	
-	
 func random_position():
 	randomize()
 	var shape = $BossArea/CollisionShape2D.shape
