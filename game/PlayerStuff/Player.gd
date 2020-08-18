@@ -4,6 +4,7 @@ signal shoot
 signal update_health
 signal set_HUD
 signal died
+signal stop_boss
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
@@ -32,6 +33,7 @@ var debug = false
 var died = false
 var sprite_direction = "bottom"
 var disable = false
+var send_stop_signal = false
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -51,9 +53,14 @@ func _ready():
 	elif mode == "transition":
 		$Camera.current = true
 		$Camera.zoom = Vector2(0.5, 0.5)
+		
+		
 func _process(delta):
 	if disable or Global.freeze:
 		return
+	if send_stop_signal:
+		emit_signal("stop_boss")
+		send_stop_signal = false
 	
 	var mov_vector = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
@@ -99,9 +106,9 @@ func _input(event):
 			dash()
 		elif event.is_action_pressed("melee_attack"):
 			melee_attack()
-		if mode == "anxiety":
-			if event.is_action_pressed("shoot"):
-				emit_signal("shoot", position, get_player_direction())
+	if mode == "anxiety":
+		if event.is_action_pressed("shoot"):
+			emit_signal("shoot", position, get_player_direction())
 				
 				
 func get_player_direction():

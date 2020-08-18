@@ -89,6 +89,8 @@ tracks/3/keys = {
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="Meditations" type="Node" parent="."]
+
 [node name="GameHUD" parent="." instance=ExtResource( 3 )]
 
 [node name="ArenaWalls" type="StaticBody2D" parent="." groups=[
@@ -167,4 +169,13 @@ anims/PixelEffect = SubResource( 5 )
 [node name="Anxiety" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1026.29, 426.148 )
 scale = Vector2( 0.2, 0.2 )
+
+[node name="TimerShoot" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="TimerMeditation" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 [connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="TimerShoot" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="TimerMeditation" to="." method="_on_TimerMeditation_timeout"]

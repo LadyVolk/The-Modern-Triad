@@ -2,12 +2,12 @@ extends Node2D
 
 
 const PROJECTILE = preload("res://PlayerStuff/Projectile.tscn")
+const MEDITATION = preload("res://Bosses/Anxiety/Meditation.tscn")
 
 onready var player = $Player
 onready var boss = $Anxiety
 
-var max_delusions = 2
-
+var can_shoot = true
 var times_moved = 0
 
 enum REGION {left, right}
@@ -17,6 +17,7 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
+	player.connect("stop_boss", boss, "stop_boss")
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("anxiety_attack", player, "take_damage")
 	boss.player = player
@@ -34,11 +35,13 @@ func _ready():
 
 
 func player_shoot(pos, direction):
-	var new_projectile = PROJECTILE.instance()
-	$Projectiles.add_child(new_projectile)
-	new_projectile.position = pos
-	new_projectile.direction = direction
-	
+	if can_shoot:
+		var new_projectile = PROJECTILE.instance()
+		$Projectiles.add_child(new_projectile)
+		new_projectile.position = pos
+		new_projectile.direction = direction
+		$TimerShoot.start()
+		can_shoot = false
 	
 func random_position():
 	times_moved += 1
@@ -75,3 +78,36 @@ func stun_player(stun_time, direction, force):
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	Global.freeze = false
+
+
+func _on_Timer_timeout():
+	can_shoot = true
+
+
+func create_meditation():
+	var new_meditation
+	
+	randomize() 
+	var which_area
+	if $Meditations.get_child_count() == 0:
+		new_meditation = MEDITATION.instance()
+		$Meditations.add_child(new_meditation)
+		if randf() >= 0.5:
+			which_area = $BoostSpawnAreaL
+			new_meditation.region = REGION.left
+		else:
+			which_area = $BoostSpawnAreaR
+			new_meditation.region = REGION.right
+	else:
+		return
+	
+	var shape = which_area.get_node("CollisionShape").shape
+	
+	new_meditation.position.x = rand_range(which_area.position.x-shape.extents.x, 
+									which_area.position.x+shape.extents.x)
+	new_meditation.position.y = rand_range(which_area.position.y-shape.extents.y, 
+									which_area.position.y+shape.extents.y)
+
+
+func _on_TimerMeditation_timeout():
+	create_meditation()

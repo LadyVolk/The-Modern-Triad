@@ -10,6 +10,7 @@ var speed = 1000
 var invincible = false
 var boss_state = 1
 var player = null
+var boss_stop = false
 
 export var health = 200
 
@@ -19,7 +20,7 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	if target_destination and not invincible and not Global.freeze:
+	if target_destination and not invincible and not Global.freeze and not boss_stop:
 		var how_much = delta*speed
 		
 		var move_x = how_much_to_move(target_destination.x, position.x, how_much)
@@ -92,3 +93,11 @@ func change_state(new_stage):
 func _on_Attack_area_body_entered(body):
 	if body.is_in_group("player"):
 		emit_signal("anxiety_attack", 25)
+
+
+func stop_boss():
+	boss_stop = true
+	$MeditationTimer.start()
+	yield($MeditationTimer, "timeout")
+	boss_stop = false
+	

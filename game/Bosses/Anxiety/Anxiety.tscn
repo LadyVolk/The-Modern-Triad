@@ -169,5 +169,9 @@ collision_mask = 2
 position = Vector2( 27.1321, -27.1321 )
 scale = Vector2( 10, 10 )
 shape = SubResource( 5 )
+
+[node name="MeditationTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
 [connection signal="body_entered" from="Attack_area" to="." method="_on_Attack_area_body_entered"]
