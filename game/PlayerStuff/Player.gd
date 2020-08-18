@@ -107,7 +107,9 @@ func _input(event):
 		elif event.is_action_pressed("melee_attack"):
 			melee_attack()
 	if mode == "anxiety":
-		if event.is_action_pressed("shoot"):
+		if event.is_action_pressed("player_dash"):
+			dash()
+		elif event.is_action_pressed("shoot"):
 			emit_signal("shoot", position, get_player_direction())
 				
 				

@@ -3,11 +3,10 @@
 [ext_resource path="res://Bosses/Anxiety/Anxiety.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/depression/depression_stage_1_idle.png" type="Texture" id=2]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 80, -164, 110, -148, 80, 75, 70, 83, -35, 108, -72, 93, -80, 30, -66, -4 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.7982
 
 [sub_resource type="Animation" id=2]
-resource_name = "change_state"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -128,25 +127,26 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="CircleShape2D" id=5]
-radius = 12.7982
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 80, -164, 110, -148, 80, 75, 70, 83, -35, 108, -72, 93, -80, 30, -66, -4 )
 
 [node name="Anxiety" type="KinematicBody2D" groups=[
 "boss",
 ]]
 position = Vector2( 1, 0 )
-collision_layer = 0
+collision_layer = 32
 collision_mask = 0
 script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 27.1321, -27.1321 )
+scale = Vector2( 10, 10 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 texture = ExtResource( 2 )
 hframes = 17
-
-[node name="Colission" type="CollisionShape2D" parent="."]
-position = Vector2( 1.19745, -2.99368 )
-shape = SubResource( 1 )
 
 [node name="TimerPosition" type="Timer" parent="."]
 wait_time = 0.1
@@ -161,17 +161,16 @@ anims/stun = SubResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Attack_area" type="Area2D" parent="."]
+[node name="MeditationTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_area"]
-position = Vector2( 27.1321, -27.1321 )
-scale = Vector2( 10, 10 )
+[node name="Colission" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 1.19745, -2.99368 )
 shape = SubResource( 5 )
-
-[node name="MeditationTimer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
-[connection signal="body_entered" from="Attack_area" to="." method="_on_Attack_area_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

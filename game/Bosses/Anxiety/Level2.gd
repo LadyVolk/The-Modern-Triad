@@ -37,6 +37,7 @@ func _ready():
 func player_shoot(pos, direction):
 	if can_shoot:
 		var new_projectile = PROJECTILE.instance()
+		new_projectile.connect("shoot_at_boss", self, "boss_take_damage")
 		$Projectiles.add_child(new_projectile)
 		new_projectile.position = pos
 		new_projectile.direction = direction
@@ -45,7 +46,7 @@ func player_shoot(pos, direction):
 	
 func random_position():
 	times_moved += 1
-	if times_moved >= 5:
+	if times_moved >= 3:
 		times_moved = 0
 		return player.position
 	randomize()
@@ -111,3 +112,14 @@ func create_meditation():
 
 func _on_TimerMeditation_timeout():
 	create_meditation()
+
+
+func boss_take_damage():
+	boss.take_damage(20)
+	
+	
+	
+	
+	
+	
+	

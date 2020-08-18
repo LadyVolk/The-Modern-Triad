@@ -90,14 +90,17 @@ func change_state(new_stage):
 	pass	
 	
 
-func _on_Attack_area_body_entered(body):
-	if body.is_in_group("player"):
-		emit_signal("anxiety_attack", 25)
-
-
 func stop_boss():
 	boss_stop = true
 	$MeditationTimer.start()
 	yield($MeditationTimer, "timeout")
 	boss_stop = false
 	
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("player"):
+		emit_signal("anxiety_attack", 25)
+
+
+
+
