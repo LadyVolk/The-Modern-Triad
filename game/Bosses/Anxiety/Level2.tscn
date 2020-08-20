@@ -12,7 +12,7 @@
 extents = Vector2( 310.521, 350 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 889.341, 442.87 )
+extents = Vector2( 889.341, 478.474 )
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -132,7 +132,7 @@ shape = SubResource( 1 )
 position = Vector2( 1000, 500 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossArea"]
-position = Vector2( -41.7432, 11.0496 )
+position = Vector2( -38.06, 33.1489 )
 shape = SubResource( 2 )
 
 [node name="FadeScreen" parent="." instance=ExtResource( 4 )]

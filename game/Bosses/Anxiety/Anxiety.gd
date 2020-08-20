@@ -11,6 +11,7 @@ var invincible = false
 var boss_state = 1
 var player = null
 var boss_stop = false
+var attack_cooldown_on = false
 
 export var health = 200
 
@@ -98,9 +99,18 @@ func stop_boss():
 	
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("player") and not attack_cooldown_on:
+		$TimerAttack.start()
+		attack_cooldown_on = true
 		emit_signal("anxiety_attack", 25)
 
 
+func _on_TimerAttack_timeout():
+	attack_cooldown_on = false
 
 
+func increase_speed():
+	speed = 2000
+
+func decrease_speed():
+	speed = 1000

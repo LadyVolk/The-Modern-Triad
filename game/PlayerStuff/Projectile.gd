@@ -3,7 +3,7 @@ extends KinematicBody2D
 class_name Projectile
 
 var direction
-export var speed = 1000
+export var speed = 2000
 
 signal shoot_at_boss
 

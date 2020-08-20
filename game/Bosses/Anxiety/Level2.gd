@@ -18,6 +18,8 @@ func _ready():
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
 	player.connect("stop_boss", boss, "stop_boss")
+	player.connect("decrease_boss_speed", boss, "decrease_speed")
+	player.connect("increase_boss_speed", boss, "increase_speed")
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("anxiety_attack", player, "take_damage")
 	boss.player = player
@@ -43,7 +45,9 @@ func player_shoot(pos, direction):
 		new_projectile.direction = direction
 		$TimerShoot.start()
 		can_shoot = false
+		
 	
+		
 func random_position():
 	times_moved += 1
 	if times_moved >= 3:
@@ -116,10 +120,5 @@ func _on_TimerMeditation_timeout():
 
 func boss_take_damage():
 	boss.take_damage(20)
-	
-	
-	
-	
-	
-	
+
 	

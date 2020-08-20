@@ -935,7 +935,6 @@ speed = 4000
 texture = ExtResource( 7 )
 vframes = 4
 hframes = 10
-frame = 9
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false

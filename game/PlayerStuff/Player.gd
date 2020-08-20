@@ -5,6 +5,8 @@ signal update_health
 signal set_HUD
 signal died
 signal stop_boss
+signal increase_boss_speed
+signal decrease_boss_speed
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
@@ -76,13 +78,14 @@ func _process(delta):
 
 	if mov_vector != Vector2.ZERO and not stunned:
 		apply_movement(mov_vector * speed * delta)
+		emit_signal("increase_boss_speed")
 	else:
 		apply_friction(speed*2 * delta)
 		if mode == "depression":
 			still_time += delta
 			if still_time >= max_still_time:
 				take_damage(still_damage * delta)
-	
+		emit_signal("decrease_boss_speed")
 	if mode == "depression" and (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
 		and not stunned:
 		still_time = 0

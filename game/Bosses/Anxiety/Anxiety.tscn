@@ -172,5 +172,8 @@ collision_mask = 2
 [node name="Colission" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 1.19745, -2.99368 )
 shape = SubResource( 5 )
+
+[node name="TimerAttack" type="Timer" parent="."]
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="TimerAttack" to="." method="_on_TimerAttack_timeout"]
