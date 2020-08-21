@@ -282,7 +282,8 @@ func change_cam_limit(pos):
 	$Camera.limit_left = pos
 	
 	
-	
+func change_speed():
+	max_speed = 200
 	
 	
 	

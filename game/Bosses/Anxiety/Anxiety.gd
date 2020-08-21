@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 signal new_target_position
 signal anxiety_attack
-
+signal change_player_speed
 
 var target_destination
 var speed = 1000
@@ -63,21 +63,12 @@ func take_damage(damage):
 	
 	health -= damage
 	
-	if health <= 200 and health > 140:
-		$AnimationPlayer.stop()
-		$AnimationPlayer.play("stun")
+	$AnimationPlayer.play("Pulse")
 	
-	elif health <= 140 and health > 70:
-		$AnimationPlayer.stop()
-		$AnimationPlayer.play("stun")
-		if boss_state == 1:
-			change_state(2)
-	elif health <= 70 and health > 0:
-		$AnimationPlayer.stop()
-		$AnimationPlayer.play("stun")
-		if boss_state == 2:
-			change_state(3)
-	else:
+	if health <= 100:
+		emit_signal("change_player_speed")
+	
+	elif health <= 0:
 		die()
 
 

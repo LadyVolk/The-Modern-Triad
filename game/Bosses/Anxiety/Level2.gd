@@ -7,7 +7,7 @@ const MEDITATION = preload("res://Bosses/Anxiety/Meditation.tscn")
 onready var player = $Player
 onready var boss = $Anxiety
 
-var can_shoot = true
+var can_shoot = false
 var times_moved = 0
 
 enum REGION {left, right}
@@ -22,6 +22,7 @@ func _ready():
 	player.connect("increase_boss_speed", boss, "increase_speed")
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("anxiety_attack", player, "take_damage")
+	boss.connect("change_player_speed", player, "change_speed")
 	boss.player = player
 	##AudioManager.play_bgm("depression")
 
@@ -35,6 +36,7 @@ func _ready():
 	
 	$Shaders/Pixel/AnimationPlayer.play("PixelEffect")
 
+	$TimerShoot.start()
 
 func player_shoot(pos, direction):
 	if can_shoot:
@@ -119,6 +121,6 @@ func _on_TimerMeditation_timeout():
 
 
 func boss_take_damage():
-	boss.take_damage(20)
+	boss.take_damage(50)
 
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Bosses/Anxiety/Anxiety.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/depression/depression_stage_1_idle.png" type="Texture" id=2]
@@ -6,7 +6,24 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.7982
 
+[sub_resource type="Animation" id=6]
+resource_name = "Pulse"
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.784314 ), Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0.784314 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=2]
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -144,7 +161,7 @@ scale = Vector2( 10, 10 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 1 )
+modulate = Color( 1, 1, 1, 0.784314 )
 texture = ExtResource( 2 )
 hframes = 17
 
@@ -155,6 +172,7 @@ autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+anims/Pulse = SubResource( 6 )
 anims/change_state = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/stun = SubResource( 4 )
