@@ -1,0 +1,376 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Life/Corridor2.gd" type="Script" id=1]
+[ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/images/corridor_floor.png" type="Texture" id=3]
+[ext_resource path="res://Life/Mirror.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
+[ext_resource path="res://Life/base_fade.shader" type="Shader" id=6]
+[ext_resource path="res://Life/Pixelation.tres" type="Material" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 20 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 960, 20 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 68.1573 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 6 )
+shader_param/amount = 0.0
+shader_param/noise_texture = ExtResource( 5 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "PixelEffect"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/rangex")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 500.0, 1920.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/rangey")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 300.0, 1080.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/on")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:material:shader_param/square_range")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 10.0, 1.0 ]
+}
+
+[node name="Corridor2" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="NorthWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 960, 470 )
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="Walls/NorthWall"]
+shape = SubResource( 1 )
+
+[node name="SouthWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 960, 600 )
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="Walls/SouthWall"]
+shape = SubResource( 2 )
+
+[node name="PastWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 800, 530 )
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/PastWall"]
+shape = SubResource( 3 )
+
+[node name="Floors" type="Node2D" parent="."]
+
+[node name="Floor1" type="TextureRect" parent="Floors"]
+margin_top = 488.0
+margin_right = 90.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor2" type="TextureRect" parent="Floors"]
+margin_left = 90.0
+margin_top = 488.0
+margin_right = 180.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor3" type="TextureRect" parent="Floors"]
+margin_left = 180.0
+margin_top = 488.0
+margin_right = 270.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor4" type="TextureRect" parent="Floors"]
+margin_left = 270.0
+margin_top = 488.0
+margin_right = 360.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor5" type="TextureRect" parent="Floors"]
+margin_left = 350.0
+margin_top = 488.0
+margin_right = 440.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor6" type="TextureRect" parent="Floors"]
+margin_left = 440.0
+margin_top = 488.0
+margin_right = 530.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor7" type="TextureRect" parent="Floors"]
+margin_left = 530.0
+margin_top = 488.0
+margin_right = 620.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor8" type="TextureRect" parent="Floors"]
+margin_left = 620.0
+margin_top = 488.0
+margin_right = 710.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor9" type="TextureRect" parent="Floors"]
+margin_left = 710.0
+margin_top = 488.0
+margin_right = 800.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor10" type="TextureRect" parent="Floors"]
+margin_left = 800.0
+margin_top = 488.0
+margin_right = 890.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor11" type="TextureRect" parent="Floors"]
+margin_left = 890.0
+margin_top = 488.0
+margin_right = 980.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor12" type="TextureRect" parent="Floors"]
+margin_left = 980.0
+margin_top = 488.0
+margin_right = 1070.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor13" type="TextureRect" parent="Floors"]
+margin_left = 1070.0
+margin_top = 488.0
+margin_right = 1160.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor14" type="TextureRect" parent="Floors"]
+margin_left = 1160.0
+margin_top = 488.0
+margin_right = 1250.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor15" type="TextureRect" parent="Floors"]
+margin_left = 1250.0
+margin_top = 488.0
+margin_right = 1340.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor16" type="TextureRect" parent="Floors"]
+margin_left = 1330.0
+margin_top = 488.0
+margin_right = 1420.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor17" type="TextureRect" parent="Floors"]
+margin_left = 1420.0
+margin_top = 488.0
+margin_right = 1510.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor18" type="TextureRect" parent="Floors"]
+margin_left = 1510.0
+margin_top = 488.0
+margin_right = 1600.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor19" type="TextureRect" parent="Floors"]
+margin_left = 1600.0
+margin_top = 488.0
+margin_right = 1690.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor20" type="TextureRect" parent="Floors"]
+margin_left = 1690.0
+margin_top = 488.0
+margin_right = 1780.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor21" type="TextureRect" parent="Floors"]
+margin_left = 1780.0
+margin_top = 488.0
+margin_right = 1870.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor22" type="TextureRect" parent="Floors"]
+margin_left = 1870.0
+margin_top = 488.0
+margin_right = 1960.0
+margin_bottom = 578.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1061.94, 529.392 )
+mode = "transsition"
+
+[node name="Mirror" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1521.28, 492.073 )
+
+[node name="ShaderLayer" type="CanvasLayer" parent="."]
+
+[node name="Fade" type="ColorRect" parent="ShaderLayer"]
+material = SubResource( 4 )
+margin_top = 3.0
+margin_right = 1920.0
+margin_bottom = 1083.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PixelEffect" type="ColorRect" parent="ShaderLayer"]
+visible = false
+material = ExtResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShaderLayer/PixelEffect"]
+anims/PixelEffect = SubResource( 5 )
+
+[node name="Tween" type="Tween" parent="."]
