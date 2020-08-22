@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.7982
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "Pulse"
 step = 0.2
 tracks/0/type = "value"
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.784314 ), Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0.588235 ), Color( 1, 1, 1, 0.784314 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -63,7 +63,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -115,7 +115,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -144,7 +144,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 points = PoolVector2Array( 80, -164, 110, -148, 80, 75, 70, 83, -35, 108, -72, 93, -80, 30, -66, -4 )
 
 [node name="Anxiety" type="KinematicBody2D" groups=[
@@ -172,10 +172,10 @@ autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/Pulse = SubResource( 6 )
-anims/change_state = SubResource( 2 )
-anims/idle = SubResource( 3 )
-anims/stun = SubResource( 4 )
+anims/Pulse = SubResource( 2 )
+anims/change_state = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/stun = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -189,7 +189,7 @@ collision_mask = 2
 
 [node name="Colission" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 1.19745, -2.99368 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="TimerAttack" type="Timer" parent="."]
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]

@@ -21,7 +21,7 @@ export var max_health = 100
 export var max_still_time = 0.2 
 export var still_damage = 30
 export var movement_heal = 8
-export var mode = "anxiety"
+
 
 var health
 var dash_movement = Vector2()
@@ -36,6 +36,7 @@ var died = false
 var sprite_direction = "bottom"
 var disable = false
 var send_stop_signal = false
+var mode
 
 const melee_damage = 5
 const dash_time = 0.2
@@ -47,6 +48,7 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
+	mode = Global.mode
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
@@ -101,6 +103,7 @@ func _process(delta):
 	if mode == "depression":
 		#slowdown by depression
 		max_speed = max(min_speed, max_speed - speed_slowdown * delta)
+	
 	
 
 func _input(event):

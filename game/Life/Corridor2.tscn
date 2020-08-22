@@ -345,7 +345,6 @@ __meta__ = {
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1061.94, 529.392 )
-mode = "transsition"
 
 [node name="Mirror" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1521.28, 492.073 )
