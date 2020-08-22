@@ -24,7 +24,7 @@ func _ready():
 	boss.connect("anxiety_attack", player, "take_damage")
 	boss.connect("change_player_speed", player, "change_speed")
 	boss.player = player
-	##AudioManager.play_bgm("depression")
+	AudioManager.play_bgm("depression")
 
 	Global.freeze = true
 	
@@ -52,7 +52,7 @@ func player_shoot(pos, direction):
 		
 func random_position():
 	times_moved += 1
-	if times_moved >= 3:
+	if times_moved >= 4:
 		times_moved = 0
 		return player.position
 	randomize()

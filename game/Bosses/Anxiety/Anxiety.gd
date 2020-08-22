@@ -68,7 +68,7 @@ func take_damage(damage):
 	if health <= 100:
 		emit_signal("change_player_speed")
 	
-	elif health <= 0:
+	if health <= 0:
 		die()
 
 
