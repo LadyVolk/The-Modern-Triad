@@ -48,12 +48,11 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
-	#mode = Global.mode
 	mode = "self"
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
-	if mode == "depression" or mode == "anxiety" or mode == "self":
+	if mode == "self":
 		$Camera.queue_free()
 	elif mode == "transition":
 		$Camera.current = true
@@ -108,12 +107,12 @@ func _process(delta):
 	
 
 func _input(event):
-	if mode == "depression" or mode == "self":
+	if mode == "depression":
 		if event.is_action_pressed("player_dash"):
 			dash()
 		elif event.is_action_pressed("melee_attack"):
 			melee_attack()
-	if mode == "anxiety" or mode == "self":
+	if mode == "anxiety":
 		if event.is_action_pressed("player_dash"):
 			dash()
 		elif event.is_action_pressed("shoot"):
@@ -288,9 +287,3 @@ func change_cam_limit(pos):
 	
 func change_speed():
 	max_speed = 200
-	
-	
-	
-	
-	
-	
