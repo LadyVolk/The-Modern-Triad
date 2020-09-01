@@ -48,16 +48,15 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
-	#mode = Global.mode
-	mode = Global.mode
+	mode = "self"
 	health = max_health
 	emit_signal("set_HUD", max_health)
-	if mode == "depression" or mode == "anxiety":
-		$Camera.queue_free()
-	elif mode == "transition":
+		
+	if mode == "transition":
 		$Camera.current = true
 		$Camera.zoom = Vector2(0.5, 0.5)
-		
+	else:
+		$Camera.queue_free()	
 		
 func _process(delta):
 	if disable or Global.freeze:

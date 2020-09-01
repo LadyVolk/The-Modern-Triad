@@ -8,7 +8,7 @@
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
 [ext_resource path="res://Bosses/Self/Self.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
 uniform float amount : hint_range(0, 1);
@@ -25,12 +25,12 @@ void fragment(){
 
 }"
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/amount = 1.0
 shader_param/noise_texture = ExtResource( 5 )
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/rangex")
 tracks/0/interp = 1
@@ -116,7 +116,7 @@ layer = 2
 
 [node name="FadeIn" type="ColorRect" parent="Shaders"]
 visible = false
-material = SubResource( 4 )
+material = SubResource( 2 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
@@ -136,7 +136,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Shaders/Pixel"]
-anims/PixelEffect = SubResource( 5 )
+anims/PixelEffect = SubResource( 3 )
 
 [node name="Projectiles" type="Node" parent="."]
 

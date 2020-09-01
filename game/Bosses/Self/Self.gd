@@ -5,8 +5,7 @@ signal update_health
 signal set_HUD
 signal died
 signal stop_boss
-signal increase_boss_speed
-signal decrease_boss_speed
+
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
@@ -48,16 +47,10 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
-	mode = "self"
 	health = max_health
 	emit_signal("set_HUD", max_health)
 
-	if mode == "self":
-		$Camera.queue_free()
-	elif mode == "transition":
-		$Camera.current = true
-		$Camera.zoom = Vector2(0.5, 0.5)
-		
+
 		
 func _process(delta):
 	if disable or Global.freeze:
@@ -91,8 +84,6 @@ func _process(delta):
 	if mode == "depression" and (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
 		and not stunned:
 		still_time = 0
-		
-		heal(movement_heal*delta)
 	
 	movement = move_and_slide(movement + dash_movement*delta + 
 							  knockback_movement*delta)
@@ -100,23 +91,16 @@ func _process(delta):
 	
 	update_player_sprite()
 	
-	if mode == "depression":
-		#slowdown by depression
-		max_speed = max(min_speed, max_speed - speed_slowdown * delta)
 	
 	
 
 func _input(event):
-	if mode == "depression":
-		if event.is_action_pressed("player_dash"):
-			dash()
-		elif event.is_action_pressed("melee_attack"):
-			melee_attack()
-	if mode == "anxiety":
-		if event.is_action_pressed("player_dash"):
-			dash()
-		elif event.is_action_pressed("shoot"):
-			emit_signal("shoot", position, get_player_direction())
+	
+	if event.is_action_pressed("melee_attack"):
+		melee_attack()
+
+	elif event.is_action_pressed("shoot"):
+		emit_signal("shoot", position, get_player_direction())
 				
 				
 func get_player_direction():
@@ -126,17 +110,6 @@ func get_player_direction():
 	return  (mouse_pos - center_player).normalized()
 	
 	
-func dash():
-	if not $DashCooldown.is_stopped() or stunned:
-		return
-		
-	$DashCooldown.start()
-	
-	movement = Vector2()
-	var direction = get_player_direction()
-	$Tween.interpolate_property(self, "dash_movement", direction * dash_strength,
-							Vector2(), dash_time, Tween.TRANS_QUAD, Tween.EASE_OUT_IN)
-	$Tween.start()
 
 func apply_movement(acceleration):
 	movement += acceleration
@@ -197,32 +170,8 @@ func die():
 		visible = false
 		set_collision_layer(0)
 		set_collision_mask(0)
-		
-		
-func heal(heal):
-	health = min(max_health, health+heal)
 	
-	emit_signal("update_health", health)	
-	 
-	
-func stun(stun_time, direction, force):
-	if stunned:
-		return
-	
-	AudioManager.play_sfx("stun_sound", 0.2)
-	
-	stunned = true
-	
-	if direction:
-		knockback(direction, force)
-	
-	yield(get_tree().create_timer(stun_time), "timeout")
-	
-	if died:
-		emit_signal("died")
-		queue_free()
-	
-	stunned = false
+
 	
 func melee_attack():
 	if attacking:
@@ -264,26 +213,5 @@ func get_direction_name(angle):
 	
 
 func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
-	if not $Damage.visible:
-		return
-	if(body.is_in_group("boss")):
-		body.take_damage(melee_damage)
-		$AnimationPlayer.stop(false)
-		yield(get_tree().create_timer(player_hit_stun), "timeout")
-		$AnimationPlayer.play()
-
-
-func knockback(direction, force):
-	take_damage(10)
+	pass					
 	
-	$Tween.interpolate_property(self, "knockback_movement", 
-								direction.normalized() * force, Vector2(),
-								0.4,Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.start()							
-	
-func change_cam_limit(pos):
-	$Camera.limit_left = pos
-	
-	
-func change_speed():
-	max_speed = 200
