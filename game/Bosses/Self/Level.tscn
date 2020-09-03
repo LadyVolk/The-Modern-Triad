@@ -146,5 +146,10 @@ position = Vector2( 1400, 500 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 400, 500 )
+
+[node name="Situations" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 [connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Situations" to="." method="_on_Situations_timeout"]

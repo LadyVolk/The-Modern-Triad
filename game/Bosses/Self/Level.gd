@@ -2,7 +2,7 @@ extends Node2D
 
 
 const PROJECTILE = preload("res://PlayerStuff/Projectile.tscn")
-
+const SITUATION = preload("res://Bosses/Self/Situation.tscn")
 
 onready var player = $Player
 onready var self_boss = $Self
@@ -90,3 +90,26 @@ func die_projectile(projectile1, projectile2):
 	projectile1.queue_free()
 	projectile2.queue_free()
 
+
+
+func _on_Situations_timeout():
+	var new_situation = SITUATION.instance()
+	
+	randomize()
+	
+	var which = rand_range(0, 1)
+	
+	if which < 0.5:
+		
+		var pos_x = rand_range(0, get_viewport().get_rect().x)
+	
+		var pos_y = -20
+	
+		var pos = Vector2(pos_x, pos_y)
+	else:
+		pass
+	
+	
+	
+	
+	
