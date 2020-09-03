@@ -18,6 +18,8 @@ func _ready():
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
 	
+	self_boss.player = player
+	
 	AudioManager.play_bgm("depression")
 
 	Global.freeze = true

@@ -1,33 +1,21 @@
 extends KinematicBody2D
 
-signal shoot
 signal update_health
-signal set_HUD
 signal died
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
 
 export var speed: int
-export var dash_strength = 40000
 export var max_speed = 400
 export var min_speed = 100
-export var speed_boost = 300
-export var speed_slowdown = 30
 export var max_health = 100
-export var max_still_time = 0.2 
-export var still_damage = 30
-export var movement_heal = 8
 
-
+var player
 var health
 var dash_movement = Vector2()
-var movement = Vector2()
 var knockback_movement = Vector2()
-var still_time = 0
 var attacking = false
-var stunned = false
-var player_hit_stun = 0.1
 var debug = false
 var died = false
 var sprite_direction = "bottom"
@@ -46,34 +34,12 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 
 func _ready():
 	health = max_health
-	emit_signal("set_HUD", max_health)
-
 
 		
-func _process(delta):
-	if disable or Global.freeze:
-		return
-	
-	var mov_vector = Vector2(0, 0)
-	if Input.is_action_pressed("player_up"):
-		mov_vector.y -= 1
-	if Input.is_action_pressed("player_down"):
-		mov_vector.y += 1
-	if Input.is_action_pressed("player_right"):
-		mov_vector.x += 1
-	if Input.is_action_pressed("player_left"):
-		mov_vector.x -= 1 
-	
-	mov_vector = mov_vector.normalized()
-
-	if mov_vector != Vector2.ZERO and not stunned:
-		apply_movement(mov_vector * speed * delta)
-	else:
-		apply_friction(speed*2 * delta)
-	
-	movement = move_and_slide(movement + dash_movement*delta + 
-							  knockback_movement*delta)
-
+func _process(delta):		
+# warning-ignore:return_value_discarded
+	move_and_slide(-(player.movement + dash_movement*delta + 
+							  knockback_movement*delta))
 	
 	update_player_sprite()
 	
@@ -82,9 +48,6 @@ func _input(event):
 	
 	if event.is_action_pressed("melee_attack"):
 		melee_attack()
-
-	elif event.is_action_pressed("shoot"):
-		emit_signal("shoot", position, get_player_direction())
 				
 				
 func get_player_direction():
@@ -93,19 +56,6 @@ func get_player_direction():
 	
 	return  (mouse_pos - center_player).normalized()
 	
-	
-
-func apply_movement(acceleration):
-	movement += acceleration
-	movement = movement.clamped(max_speed)
-	
-
-func apply_friction(acceleration):
-	if movement.length() > acceleration:
-		movement -= movement.normalized() * acceleration
-	else:
-		movement = Vector2()
-
 
 func update_player_sprite():
 	if attacking:
@@ -113,10 +63,10 @@ func update_player_sprite():
 		
 	#var angle = rad2deg(get_player_direction().angle())	
 	
-	if movement.length() <= 0.1:
+	if player.movement.length() <= 0.1:
 		animation.play("idle_"+sprite_direction)
 	else:
-		var angle = rad2deg(movement.angle())
+		var angle = rad2deg(player.movement.angle())
 	
 		if angle < 0:
 			angle += 360
@@ -147,13 +97,8 @@ func die():
 	var number = randi()%4+1
 	AudioManager.play_sfx("player_death_"+str(number), 0.2)
 	
-	if not stunned:
-		emit_signal("died")
-		queue_free()
-	else:
-		visible = false
-		set_collision_layer(0)
-		set_collision_mask(0)
+	emit_signal("died")
+	queue_free()
 	
 
 	
@@ -181,21 +126,17 @@ func melee_attack():
 func get_direction_name(angle):
 	#top
 	if angle >= 225 and angle < 315:
-		return "top"
+		return "bottom"
 	
 	#right
 	elif angle >= 315 or angle < 45:
-		return "right"
+		return "left"
 	
 	#bottom 
 	elif angle >= 45 and angle < 135:
-		return "bottom"
+		return "top"
 	
 	#left
 	elif angle >= 135 and angle < 225:
-		return "left"
-	
-
-func _on_Damage_body_shape_entered(_body_id, _body, _body_shape, _area_shape):
-	pass					
+		return "right"
 	

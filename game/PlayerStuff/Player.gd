@@ -106,6 +106,11 @@ func _process(delta):
 	
 
 func _input(event):
+	if mode == "self":
+		if event.is_action_pressed("melee_attack"):
+			melee_attack()
+		elif event.is_action_pressed("shoot"):
+			emit_signal("shoot", position, get_player_direction())
 	if mode == "depression":
 		if event.is_action_pressed("player_dash"):
 			dash()
