@@ -37,14 +37,17 @@ func _ready():
 func player_shoot(pos, direction):
 	if can_shoot:
 		var new_projectile = PROJECTILE.instance()
-		new_projectile.connect("shoot_at_boss", self, "boss_take_damage")
+		new_projectile.connect("shoot_at_projectile", self, "die_projectile")
 		$Projectiles.add_child(new_projectile)
 		new_projectile.position = pos
 		new_projectile.direction = direction
 		$TimerShoot.start()
-		can_shoot = false
 		
-	
+		var new_projectile_inverted = PROJECTILE.instance()
+		$Projectiles.add_child(new_projectile_inverted)
+		new_projectile_inverted.position = self_boss.position
+		new_projectile_inverted.direction = -direction
+		can_shoot = false
 		
 func random_position():
 	times_moved += 1
@@ -81,3 +84,9 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 func _on_Timer_timeout():
 	can_shoot = true
+
+
+func die_projectile(projectile1, projectile2):
+	projectile1.queue_free()
+	projectile2.queue_free()
+
