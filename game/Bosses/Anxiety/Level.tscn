@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Bosses/Anxiety/Level2.gd" type="Script" id=1]
-[ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Bosses/Anxiety/Level.gd" type="Script" id=4]
 [ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
 [ext_resource path="res://Bosses/Anxiety/Anxiety.tscn" type="PackedScene" id=7]
@@ -87,11 +87,11 @@ tracks/3/keys = {
 }
 
 [node name="Level" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="Meditations" type="Node" parent="."]
 
-[node name="GameHUD" parent="." instance=ExtResource( 3 )]
+[node name="GameHUD" parent="." instance=ExtResource( 2 )]
 
 [node name="ArenaWalls" type="StaticBody2D" parent="." groups=[
 "walls",
@@ -113,7 +113,7 @@ polygon = PoolVector2Array( 0, 0, 0, -1080, 30, -1080, 30, 0 )
 position = Vector2( 0, 1080 )
 polygon = PoolVector2Array( 1890, 0, 1890, -1080, 1920, -1080, 1920, 0 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 400, 500 )
 
 [node name="BoostSpawnAreaL" type="Area2D" parent="."]
@@ -135,7 +135,7 @@ position = Vector2( 1000, 500 )
 position = Vector2( -38.06, 33.1489 )
 shape = SubResource( 2 )
 
-[node name="FadeScreen" parent="." instance=ExtResource( 4 )]
+[node name="FadeScreen" parent="." instance=ExtResource( 3 )]
 
 [node name="Tween" type="Tween" parent="."]
 

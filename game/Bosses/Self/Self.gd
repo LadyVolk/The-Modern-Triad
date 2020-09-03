@@ -4,8 +4,6 @@ signal shoot
 signal update_health
 signal set_HUD
 signal died
-signal stop_boss
-
 
 onready var image = $Image
 onready var animation = $AnimationPlayer
@@ -55,9 +53,6 @@ func _ready():
 func _process(delta):
 	if disable or Global.freeze:
 		return
-	if send_stop_signal:
-		emit_signal("stop_boss")
-		send_stop_signal = false
 	
 	var mov_vector = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
@@ -73,25 +68,14 @@ func _process(delta):
 
 	if mov_vector != Vector2.ZERO and not stunned:
 		apply_movement(mov_vector * speed * delta)
-		emit_signal("increase_boss_speed")
 	else:
 		apply_friction(speed*2 * delta)
-		if mode == "depression":
-			still_time += delta
-			if still_time >= max_still_time:
-				take_damage(still_damage * delta)
-		emit_signal("decrease_boss_speed")
-	if mode == "depression" and (mov_vector != Vector2.ZERO or dash_movement.length() > 0) \
-		and not stunned:
-		still_time = 0
 	
 	movement = move_and_slide(movement + dash_movement*delta + 
 							  knockback_movement*delta)
 
 	
 	update_player_sprite()
-	
-	
 	
 
 func _input(event):
@@ -212,6 +196,6 @@ func get_direction_name(angle):
 		return "left"
 	
 
-func _on_Damage_body_shape_entered(_body_id, body, _body_shape, _area_shape):
+func _on_Damage_body_shape_entered(_body_id, _body, _body_shape, _area_shape):
 	pass					
 	

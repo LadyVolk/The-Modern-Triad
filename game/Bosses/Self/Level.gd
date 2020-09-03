@@ -2,10 +2,10 @@ extends Node2D
 
 
 const PROJECTILE = preload("res://PlayerStuff/Projectile.tscn")
-const MEDITATION = preload("res://Bosses/Anxiety/Meditation.tscn")
+
 
 onready var player = $Player
-onready var boss = $Anxiety
+onready var self_boss = $Self
 
 var can_shoot = false
 var times_moved = 0
@@ -17,13 +17,7 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
-	player.connect("stop_boss", boss, "stop_boss")
-	player.connect("decrease_boss_speed", boss, "decrease_speed")
-	player.connect("increase_boss_speed", boss, "increase_speed")
-	boss.connect("new_target_position", self, "get_boss_position")
-	boss.connect("anxiety_attack", player, "take_damage")
-	boss.connect("change_player_speed", player, "change_speed")
-	boss.player = player
+	
 	AudioManager.play_bgm("depression")
 
 	Global.freeze = true
@@ -62,13 +56,9 @@ func random_position():
 						  rand_range(area.y-shape.extents.y, area.y+shape.extents.y))
 	return new_pos
 	
-func get_boss_position(boss_):
-	boss_.target_destination = random_position()
-	
 	
 func _on_player_died():
 	player = null
-	boss.player = null
 	
 	$FadeScreen.fade_out()
 	
@@ -89,38 +79,3 @@ func _on_AnimationPlayer_animation_finished(_anim_name):
 
 func _on_Timer_timeout():
 	can_shoot = true
-
-
-func create_meditation():
-	var new_meditation
-	
-	randomize() 
-	var which_area
-	if $Meditations.get_child_count() == 0:
-		new_meditation = MEDITATION.instance()
-		$Meditations.add_child(new_meditation)
-		if randf() >= 0.5:
-			which_area = $BoostSpawnAreaL
-			new_meditation.region = REGION.left
-		else:
-			which_area = $BoostSpawnAreaR
-			new_meditation.region = REGION.right
-	else:
-		return
-	
-	var shape = which_area.get_node("CollisionShape").shape
-	
-	new_meditation.position.x = rand_range(which_area.position.x-shape.extents.x, 
-									which_area.position.x+shape.extents.x)
-	new_meditation.position.y = rand_range(which_area.position.y-shape.extents.y, 
-									which_area.position.y+shape.extents.y)
-
-
-func _on_TimerMeditation_timeout():
-	create_meditation()
-
-
-func boss_take_damage():
-	boss.take_damage(50)
-
-	

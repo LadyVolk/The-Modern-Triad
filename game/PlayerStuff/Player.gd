@@ -38,7 +38,7 @@ var disable = false
 var send_stop_signal = false
 var mode
 
-const melee_damage = 5
+const melee_damage = 200
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),
@@ -48,7 +48,7 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 						}
 
 func _ready():
-	mode = "self"
+	mode = Global.mode
 	health = max_health
 	emit_signal("set_HUD", max_health)
 		

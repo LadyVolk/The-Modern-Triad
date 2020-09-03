@@ -73,13 +73,11 @@ func take_damage(damage):
 
 
 func die():
+	Global.change_scene(0.1, "res://Life/Corridor3.tscn")
 	queue_free()
 	
 func play_idle():
 	$AnimationPlayer.play("idle")
-	
-func change_state(new_stage):
-	pass	
 	
 
 func stop_boss():

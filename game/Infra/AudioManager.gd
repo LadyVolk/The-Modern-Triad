@@ -23,7 +23,8 @@ const sfx_paths = {
 }
 const bgm_paths = {
 	"menu": preload("res://assets/sounds/menu_music.ogg"),
-	"depression": preload("res://assets/sounds/depression_music.ogg")
+	"depression": preload("res://assets/sounds/depression_music.ogg"),
+	"corridor": preload("res://assets/sounds/menu_music.ogg")
 }
 
 func play_sfx(name, pitch_var = false):
