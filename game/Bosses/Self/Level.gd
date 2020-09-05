@@ -9,6 +9,7 @@ onready var self_boss = $Self
 
 var can_shoot = false
 var times_moved = 0
+var number_shoots = 10
 
 enum REGION {left, right}
 
@@ -17,6 +18,7 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
+	
 	
 	self_boss.player = player
 	
@@ -73,9 +75,9 @@ func _on_player_died():
 	get_tree().change_scene("res://Level.tscn")
 	
 	
-func stun_player(stun_time, direction, force):
+func player_damage():
 	if player:
-		player.stun(stun_time, direction, force)	
+		player.take_damage(25)	
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
@@ -93,23 +95,64 @@ func die_projectile(projectile1, projectile2):
 
 
 func _on_Situations_timeout():
-	var new_situation = SITUATION.instance()
-	
 	randomize()
 	
 	var which = rand_range(0, 1)
+	var missing_shoot = randi()%10+1
 	
 	if which < 0.5:
 		
-		var pos_x = rand_range(0, get_viewport().get_rect().x)
-	
+		var pos_x = rand_range(0, get_viewport().size.x)
 		var pos_y = -20
-	
-		var pos = Vector2(pos_x, pos_y)
+		var position = Vector2(pos_x, pos_y)
+		
+		var direction = Vector2(0, 1)
+		
+		var i = 2
+		var space_between = 40
+		var temp_pos
+		
+		for i in number_shoots:
+				
+			temp_pos = position
+			if not i % 2:
+				boss_shoot(position, direction)
+			else:
+				position = Vector2(get_viewport().size.x - position.x, 
+								   get_viewport().size.y - pos_y)
+				boss_shoot(position, -direction)
+			position = temp_pos
+			position.x = position.x + space_between
 	else:
-		pass
+		
+		var pos_y = rand_range(0, get_viewport().size.y)
+		var pos_x = -20
+		var position = Vector2(pos_x, pos_y)
+		
+		var direction = Vector2(1, 0)
+		
+		var i = 2
+		var space_between = 40
+		var temp_pos
+		
+		for i in number_shoots:
+			temp_pos = position
+			if not i % 2:
+				boss_shoot(position, direction)
+			else:
+				position = Vector2(get_viewport().size.x - pos_x, 
+								   get_viewport().size.y - position.y)
+				boss_shoot(position, -direction)
+			position = temp_pos
+			position.y = position.y + space_between
 	
 	
+func boss_shoot(position, direction):
+	var new_situation = SITUATION.instance()
 	
+	$Projectiles.add_child(new_situation)
+	new_situation.position = position
+	new_situation.direction = direction
 	
+	new_situation.connect("situation_damage", self, "player_damage")
 	

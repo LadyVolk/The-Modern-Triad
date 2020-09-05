@@ -4,11 +4,9 @@ var direction
 
 const force = 15000
 
-
 export var speed = 800
-export var stun_time = 1
 
-signal stun_player
+signal situation_damage
 
 func _ready():
 	direction = Vector2()
@@ -21,5 +19,5 @@ func _physics_process(delta):
 		if collision.collider.is_in_group("walls"):
 			queue_free()
 		elif collision.collider.is_in_group("player"):
-			emit_signal("stun_player", stun_time, direction, force)
+			emit_signal("situation_damage")
 			queue_free()
