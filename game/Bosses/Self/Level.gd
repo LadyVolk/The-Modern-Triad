@@ -113,7 +113,8 @@ func _on_Situations_timeout():
 		var temp_pos
 		
 		for i in number_shoots:
-				
+			if i == missing_shoot:
+				continue
 			temp_pos = position
 			if not i % 2:
 				boss_shoot(position, direction)
@@ -124,7 +125,6 @@ func _on_Situations_timeout():
 			position = temp_pos
 			position.x = position.x + space_between
 	else:
-		
 		var pos_y = rand_range(0, get_viewport().size.y)
 		var pos_x = -20
 		var position = Vector2(pos_x, pos_y)
@@ -136,6 +136,8 @@ func _on_Situations_timeout():
 		var temp_pos
 		
 		for i in number_shoots:
+			if i == missing_shoot:
+				continue
 			temp_pos = position
 			if not i % 2:
 				boss_shoot(position, direction)
