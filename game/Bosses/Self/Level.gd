@@ -144,7 +144,7 @@ func _on_Situations_timeout():
 								   get_viewport().size.y - position.y)
 				boss_shoot(position, -direction)
 			position = temp_pos
-			position.y = position.y + space_between
+			position.y = position.y - space_between
 	
 	
 func boss_shoot(position, direction):
