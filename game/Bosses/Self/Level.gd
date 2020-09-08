@@ -97,56 +97,42 @@ func die_projectile(projectile1, projectile2):
 func _on_Situations_timeout():
 	randomize()
 	
-	var which = rand_range(0, 1)
-	var missing_shoot = randi()%10+1
+	var missing_shoot = randi()%number_shoots+1
+	var position
+	var direction
+	var situation_size = 64
+	var space_between = 80
+	var margin = -20
+	var space_spawn = space_between*((number_shoots/2)-1) \
+					 + situation_size/2
 	
-	if which < 0.5:
+	if rand_range(0, 1) < 0.5:
+		position = Vector2(rand_range(0, get_viewport().size.x - space_spawn), margin)
+		direction = Vector2(0, 1)
 		
-		var pos_x = rand_range(0, get_viewport().size.x)
-		var pos_y = -20
-		var position = Vector2(pos_x, pos_y)
-		
-		var direction = Vector2(0, 1)
-		
-		var i = 2
-		var space_between = 40
-		var temp_pos
-		
-		for i in number_shoots:
+		for i in range(1, number_shoots + 1):
 			if i == missing_shoot:
 				continue
-			temp_pos = position
-			if not i % 2:
+
+			if i % 2:
 				boss_shoot(position, direction)
 			else:
-				position = Vector2(get_viewport().size.x - position.x, 
-								   get_viewport().size.y - pos_y)
-				boss_shoot(position, -direction)
-			position = temp_pos
-			position.x = position.x + space_between
+				boss_shoot(Vector2(get_viewport().size.x - position.x, 
+								   get_viewport().size.y - margin), -direction)
+				position.x = position.x + space_between
 	else:
-		var pos_y = rand_range(0, get_viewport().size.y)
-		var pos_x = -20
-		var position = Vector2(pos_x, pos_y)
+		position = Vector2(margin, rand_range(0, get_viewport().size.y - space_spawn))
+		direction = Vector2(1, 0)
 		
-		var direction = Vector2(1, 0)
-		
-		var i = 2
-		var space_between = 40
-		var temp_pos
-		
-		for i in number_shoots:
+		for i in range(1, number_shoots + 1):
 			if i == missing_shoot:
 				continue
-			temp_pos = position
-			if not i % 2:
+			if i % 2:
 				boss_shoot(position, direction)
 			else:
-				position = Vector2(get_viewport().size.x - pos_x, 
-								   get_viewport().size.y - position.y)
-				boss_shoot(position, -direction)
-			position = temp_pos
-			position.y = position.y - space_between
+				boss_shoot(Vector2(get_viewport().size.x - margin, 
+								   get_viewport().size.y - position.y), -direction)
+				position.y = position.y + space_between
 	
 	
 func boss_shoot(position, direction):

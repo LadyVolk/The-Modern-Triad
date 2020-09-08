@@ -4,7 +4,7 @@ var direction
 
 const force = 15000
 
-export var speed = 800
+export var speed = 600
 
 signal situation_damage
 
