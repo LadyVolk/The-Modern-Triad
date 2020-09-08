@@ -97,6 +97,7 @@ func die():
 	emit_signal("died")
 	queue_free()
 	
+	Global.change_scene(0.1, "res://Life/NewBeginng.tscn")
 
 	
 func melee_attack():

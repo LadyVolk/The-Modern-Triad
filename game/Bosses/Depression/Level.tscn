@@ -7,6 +7,7 @@
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
 [ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/transition/FadeIn.shader" type="Shader" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 300, 350 )
@@ -14,29 +15,13 @@ extents = Vector2( 300, 350 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 580.292, 286.836 )
 
-[sub_resource type="Shader" id=3]
-code = "shader_type canvas_item;
-
-uniform float amount : hint_range(0, 1);
-uniform sampler2D noise_texture;
-
-void fragment(){	
-	vec4 noise_pixel_color = texture(noise_texture, UV);
-	
-	float noise_color = 1.0 - noise_pixel_color.r;
-	
-	float alpha = smoothstep(0.0, noise_color, amount);
-	
-	COLOR = vec4(0.0, 0.0, 0.0, alpha);
-
-}"
-
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+shader = ExtResource( 8 )
 shader_param/amount = 1.0
 shader_param/noise_texture = ExtResource( 7 )
 
 [sub_resource type="Animation" id=5]
+resource_name = "PixelEffect"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/rangex")
 tracks/0/interp = 1

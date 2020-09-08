@@ -18,6 +18,8 @@ func change_scene(_time, _which_scene: String):
 		mode = "self"
 	elif which_scene.findn("Corridor") != -1:
 		mode = "transition"
+	elif which_scene == "res://Life/NewBeginng.tscn":
+		mode = "NewBeginning"
 	else:
 		assert(false, "non valid level: " + str(which_scene))
 # warning-ignore:return_value_discarded
