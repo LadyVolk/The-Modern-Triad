@@ -19,5 +19,8 @@ func _physics_process(delta):
 		if collision.collider.is_in_group("walls"):
 			queue_free()
 		elif collision.collider.is_in_group("player"):
-			emit_signal("situation_damage")
+			emit_signal("situation_damage", "player")
+			queue_free()
+		elif collision.collider.is_in_group("self"):
+			emit_signal("situation_damage", "self")
 			queue_free()

@@ -75,10 +75,13 @@ func _on_player_died():
 	get_tree().change_scene("res://Level.tscn")
 	
 	
-func player_damage():
-	if player:
+func damage(body):
+	if not player:
+		return
+	if body == "player":
 		player.take_damage(25)	
-
+	elif body == "self":
+		self_boss.take_damage(10)
 
 func _on_AnimationPlayer_animation_finished(_anim_name):
 	Global.freeze = false
@@ -142,5 +145,5 @@ func boss_shoot(position, direction):
 	new_situation.position = position
 	new_situation.direction = direction
 	
-	new_situation.connect("situation_damage", self, "player_damage")
+	new_situation.connect("situation_damage", self, "damage")
 	

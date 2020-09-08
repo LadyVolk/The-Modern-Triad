@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-signal update_health
 signal died
 
 onready var image = $Image
@@ -82,8 +81,6 @@ func take_damage(damage):
 		return
 	
 	health -= damage
-	
-	emit_signal("update_health", health)
 	
 	if health <= 0:
 		die()
