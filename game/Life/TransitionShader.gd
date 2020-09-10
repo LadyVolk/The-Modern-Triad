@@ -2,7 +2,8 @@ extends CanvasLayer
 
 
 func _ready():
-	pass
+	$Pixel.show()
+	$FadeIn.show()
 
 func do_transition():
 	
