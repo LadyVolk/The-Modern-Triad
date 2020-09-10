@@ -12,6 +12,8 @@ func _ready():
 # warning-ignore:return_value_discarded
 	$Mirror.connect("entered_mirror", self, "mirror_enter")
 
+	$TransitionShader.do_transition()
+
 # warning-ignore:unused_argument
 func _process(_dt):
 	#move walls with player

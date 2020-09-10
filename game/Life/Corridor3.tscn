@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Life/Corridor3.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
 [ext_resource path="res://Life/base_fade.shader" type="Shader" id=6]
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=7]
+[ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 20 )
@@ -373,3 +374,5 @@ __meta__ = {
 anims/PixelEffect = SubResource( 5 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="TransitionShader" parent="." instance=ExtResource( 8 )]

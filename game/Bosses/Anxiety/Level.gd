@@ -26,15 +26,7 @@ func _ready():
 	boss.player = player
 	AudioManager.play_bgm("depression")
 
-	Global.freeze = true
-	
-	$Tween.interpolate_property($Shaders/FadeIn.get_material(), "shader_param/amount", 
-								1.0, 0.0, 1.0, Tween.TRANS_QUAD, Tween.EASE_IN)
-	$Tween.start()
-	
-	yield($Tween, "tween_completed")
-	
-	$Shaders/Pixel/AnimationPlayer.play("PixelEffect")
+	$TransitionShader.do_transition()
 
 	$TimerShoot.start()
 
@@ -81,10 +73,6 @@ func _on_player_died():
 func stun_player(stun_time, direction, force):
 	if player:
 		player.stun(stun_time, direction, force)	
-
-
-func _on_AnimationPlayer_animation_finished(_anim_name):
-	Global.freeze = false
 
 
 func _on_Timer_timeout():

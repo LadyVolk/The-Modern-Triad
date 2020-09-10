@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/28 Days Later.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Life/NewBeginng.gd" type="Script" id=2]
-[ext_resource path="res://Life/Pixelation.tres" type="Material" id=3]
-[ext_resource path="res://assets/images/transition/FadeIn.shader" type="Shader" id=4]
+[ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -11,64 +10,9 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 size = 30
 font_data = ExtResource( 1 )
-
-[sub_resource type="Animation" id=5]
-resource_name = "PixelEffect"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/rangex")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 500.0, 1920.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:material:shader_param/rangey")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 300.0, 1080.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:material:shader_param/on")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:material:shader_param/square_range")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 10.0, 1.0 ]
-}
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 4 )
-shader_param/amount = null
 
 [node name="NewBegnning" type="Node2D"]
 script = ExtResource( 2 )
@@ -99,7 +43,7 @@ __meta__ = {
 margin_top = 417.0
 margin_right = 588.0
 margin_bottom = 594.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 text = "CREDITS:
 
 Design and programming :Pedro Arrochela Lobo
@@ -109,25 +53,6 @@ Art: Yosqi Wilson
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Shaders" type="CanvasLayer" parent="."]
+[node name="Shaders" parent="." instance=ExtResource( 3 )]
 
-[node name="Pixel" type="ColorRect" parent="Shaders"]
-visible = false
-material = ExtResource( 3 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Shaders/Pixel"]
-anims/PixelEffect = SubResource( 5 )
-
-[node name="FadeIn" type="ColorRect" parent="Shaders"]
-visible = false
-material = SubResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="TransitionShader" parent="." instance=ExtResource( 3 )]
