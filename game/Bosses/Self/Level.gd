@@ -18,6 +18,7 @@ func _ready():
 	player.connect("update_health", $GameHUD, "update_health")
 	player.connect("set_HUD", $GameHUD, "set_HUD")
 	player.connect("died", self, "_on_player_died")
+	self_boss.connect("died", self, "self_died")
 	
 	
 	self_boss.player = player
@@ -136,3 +137,8 @@ func boss_shoot(position, direction):
 	
 	new_situation.connect("situation_damage", self, "damage")
 	
+func self_died():
+	$FadeScreen.fade_out()
+	yield($FadeScreen, "fade_out_finished")
+	Global.change_scene(0.1, "res://Life/NewBeginng.tscn")
+	AudioManager.play_bgm("menu")

@@ -1,11 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Anxiety/Level.gd" type="Script" id=4]
-[ext_resource path="res://assets/images/transition/trans_1.png" type="Texture" id=5]
-[ext_resource path="res://Life/Pixelation.tres" type="Material" id=6]
 [ext_resource path="res://Bosses/Anxiety/Anxiety.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=8]
 
@@ -14,78 +12,6 @@ extents = Vector2( 310.521, 350 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 889.341, 478.474 )
-
-[sub_resource type="Shader" id=3]
-code = "shader_type canvas_item;
-
-uniform float amount : hint_range(0, 1);
-uniform sampler2D noise_texture;
-
-void fragment(){	
-	vec4 noise_pixel_color = texture(noise_texture, UV);
-	
-	float noise_color = 1.0 - noise_pixel_color.r;
-	
-	float alpha = smoothstep(0.0, noise_color, amount);
-	
-	COLOR = vec4(0.0, 0.0, 0.0, alpha);
-
-}"
-
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
-shader_param/amount = 1.0
-shader_param/noise_texture = ExtResource( 5 )
-
-[sub_resource type="Animation" id=5]
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:material:shader_param/rangex")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 500.0, 1920.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:material:shader_param/rangey")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 300.0, 1080.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:material:shader_param/on")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:material:shader_param/square_range")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.8, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 10.0, 1.0 ]
-}
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 4 )
@@ -140,33 +66,6 @@ shape = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Shaders" type="CanvasLayer" parent="."]
-layer = 2
-
-[node name="FadeIn" type="ColorRect" parent="Shaders"]
-visible = false
-material = SubResource( 4 )
-margin_right = 1920.0
-margin_bottom = 1080.0
-color = Color( 0.0196078, 0.0196078, 0.0196078, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Pixel" type="ColorRect" parent="Shaders"]
-visible = false
-material = ExtResource( 6 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 1920.0
-margin_bottom = 1080.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Shaders/Pixel"]
-anims/PixelEffect = SubResource( 5 )
-
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="Anxiety" parent="." instance=ExtResource( 7 )]
@@ -181,6 +80,5 @@ wait_time = 8.0
 autostart = true
 
 [node name="TransitionShader" parent="." instance=ExtResource( 8 )]
-[connection signal="animation_finished" from="Shaders/Pixel/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="TimerMeditation" to="." method="_on_TimerMeditation_timeout"]

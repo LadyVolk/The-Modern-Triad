@@ -5,6 +5,7 @@ onready var timer = $Timer
 signal depression_shoot
 signal new_target_position
 signal create_delusion
+signal die
 
 var target_destination
 var speed = 300
@@ -114,7 +115,7 @@ func take_damage(damage):
 
 
 func die():
-	Global.change_scene(0.1, "res://Life/Corridor2.tscn")
+	emit_signal("die")
 	queue_free()
 	
 	

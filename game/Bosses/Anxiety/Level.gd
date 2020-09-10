@@ -23,6 +23,7 @@ func _ready():
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("anxiety_attack", player, "take_damage")
 	boss.connect("change_player_speed", player, "change_speed")
+	boss.connect("die", self, "boss_died")
 	boss.player = player
 	AudioManager.play_bgm("depression")
 
@@ -111,4 +112,8 @@ func _on_TimerMeditation_timeout():
 func boss_take_damage():
 	boss.take_damage(200)
 
+func boss_died():
+	$FadeScreen.fade_out()
+	yield($FadeScreen, "fade_out_finished")
+	Global.change_scene(0.1, "res://Life/Corridor3.tscn")
 	

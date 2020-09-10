@@ -22,6 +22,7 @@ func _ready():
 	boss.connect("depression_shoot", self, "boss_shoot")
 	boss.connect("new_target_position", self, "get_boss_position")
 	boss.connect("create_delusion", self, "create_delusion_boss")
+	boss.connect("die", self, "boss_died")
 	create_boost()
 	create_boost()
 	boss.player = player
@@ -171,4 +172,7 @@ func stun_player(stun_time, direction, force):
 	if player:
 		player.stun(stun_time, direction, force)	
 
-
+func boss_died():
+	$FadeScreen.fade_out()
+	yield($FadeScreen, "fade_out_finished")
+	Global.change_scene(0.1, "res://Life/Corridor2.tscn")

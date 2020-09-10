@@ -4,6 +4,7 @@ extends KinematicBody2D
 signal new_target_position
 signal anxiety_attack
 signal change_player_speed
+signal die
 
 var target_destination
 var speed = 1000
@@ -73,7 +74,7 @@ func take_damage(damage):
 
 
 func die():
-	Global.change_scene(0.1, "res://Life/Corridor3.tscn")
+	emit_signal("die")
 	queue_free()
 	
 func play_idle():
