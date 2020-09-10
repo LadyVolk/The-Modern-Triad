@@ -99,6 +99,7 @@ func die():
 	
 	Global.change_scene(0.1, "res://Life/NewBeginng.tscn")
 
+	AudioManager.play_bgm("menu")
 	
 func melee_attack():
 	if attacking:
