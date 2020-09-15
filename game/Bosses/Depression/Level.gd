@@ -129,6 +129,8 @@ func get_boss_position(boss_):
 
 
 func _on_SpeedBoostTimer_timeout():
+	if is_instance_valid(boss):
+		return
 	if boss.boss_state == 2:
 		create_boost()
 		create_fake_boost()
@@ -155,7 +157,8 @@ func create_delusion_boss(position):
 	
 func _on_player_died():
 	player = null
-	boss.player = null
+	if boss:
+		boss.player = null
 	
 	for child in $Delusions.get_children():
 		child.player = null

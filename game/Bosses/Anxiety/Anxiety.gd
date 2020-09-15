@@ -18,7 +18,7 @@ export var health = 200
 
 
 func _ready():
-	pass
+	Global.boss_alive = true
 	
 	
 func _physics_process(delta):
@@ -74,6 +74,7 @@ func take_damage(damage):
 
 
 func die():
+	Global.boss_alive = false
 	emit_signal("die")
 	queue_free()
 	

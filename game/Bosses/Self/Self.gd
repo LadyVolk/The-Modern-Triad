@@ -33,7 +33,7 @@ const player_sprites = {"top": preload("res://assets/images/player/player_top.pn
 
 func _ready():
 	health = max_health
-
+	Global.boss_alive = true
 		
 func _process(delta):		
 # warning-ignore:return_value_discarded
@@ -88,7 +88,8 @@ func take_damage(damage):
 	
 func die():
 	if died:
-		return	
+		return
+	Global.boss_alive = false
 	died = true
 	randomize()
 	var number = randi()%4+1

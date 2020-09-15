@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+signal done
 
 func _ready():
 	$Pixel.show()
@@ -20,3 +21,5 @@ func do_transition():
 	yield($Pixel/AnimationPlayer, "animation_finished")
 	
 	Global.freeze = false
+
+	emit_signal("done")

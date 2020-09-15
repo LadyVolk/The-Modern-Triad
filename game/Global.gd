@@ -4,6 +4,7 @@ var time
 var which_scene: String
 var freeze = false
 var mode = "transition"
+var boss_alive = null
 
 func change_scene(_time, _which_scene: String):
 	

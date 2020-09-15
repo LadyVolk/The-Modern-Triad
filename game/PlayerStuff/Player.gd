@@ -82,7 +82,7 @@ func _process(delta):
 		emit_signal("increase_boss_speed")
 	else:
 		apply_friction(speed*2 * delta)
-		if mode == "depression":
+		if mode == "depression" and Global.boss_alive:
 			still_time += delta
 			if still_time >= max_still_time:
 				take_damage(still_damage * delta)

@@ -17,7 +17,7 @@ var is_delusion = false
 export var health = 200
 
 func _ready():
-	pass
+	Global.boss_alive = true
 
 
 func _on_Timer_timeout():
@@ -115,6 +115,7 @@ func take_damage(damage):
 
 
 func die():
+	Global.boss_alive = false
 	emit_signal("die")
 	queue_free()
 	
