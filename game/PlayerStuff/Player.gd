@@ -38,7 +38,7 @@ var disable = false
 var send_stop_signal = false
 var mode
 
-const melee_damage = 200
+const melee_damage = 10
 const dash_time = 0.2
 const player_sprites = {"top": preload("res://assets/images/player/player_top.png"),
 						"bottom": preload("res://assets/images/player/player_botton.png"),

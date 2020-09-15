@@ -65,7 +65,7 @@ func _on_player_died():
 	yield($FadeScreen, "fade_out_finished")
 	
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Level.tscn")
+	get_tree().reload_current_scene()
 	
 	
 func damage(body):
@@ -74,7 +74,7 @@ func damage(body):
 	if body == "player":
 		player.take_damage(25)	
 	elif body == "self":
-		self_boss.take_damage(200)
+		self_boss.take_damage(10)
 
 
 func _on_Timer_timeout():

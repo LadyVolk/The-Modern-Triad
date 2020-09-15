@@ -28,7 +28,6 @@ func _ready():
 	AudioManager.play_bgm("depression")
 
 	$TransitionShader.do_transition()
-
 	$TimerShoot.start()
 
 func player_shoot(pos, direction):
@@ -44,6 +43,8 @@ func player_shoot(pos, direction):
 	
 		
 func random_position():
+	if not player:
+		return
 	times_moved += 1
 	if times_moved >= 4:
 		times_moved = 0
@@ -61,15 +62,15 @@ func get_boss_position(boss_):
 	
 func _on_player_died():
 	player = null
-	boss.player = null
+	if Global.boss_alive:
+		boss.player = null
 	
 	$FadeScreen.fade_out()
-	
 	yield($FadeScreen, "fade_out_finished")
 	
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Level.tscn")
-	
+	get_tree().reload_current_scene()
+
 	
 func stun_player(stun_time, direction, force):
 	if player:
@@ -110,7 +111,7 @@ func _on_TimerMeditation_timeout():
 
 
 func boss_take_damage():
-	boss.take_damage(200)
+	boss.take_damage(10)
 
 func boss_died():
 	$FadeScreen.fade_out()

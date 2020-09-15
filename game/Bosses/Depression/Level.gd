@@ -168,7 +168,7 @@ func _on_player_died():
 	yield($FadeScreen, "fade_out_finished")
 	
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://Level.tscn")
+	get_tree().change_scene("res://Bosses/Depression/Level.tscn")
 	
 	
 func stun_player(stun_time, direction, force):

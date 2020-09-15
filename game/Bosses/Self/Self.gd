@@ -35,7 +35,9 @@ func _ready():
 	health = max_health
 	Global.boss_alive = true
 		
-func _process(delta):		
+func _process(delta):
+	if not is_instance_valid(player):
+		return
 # warning-ignore:return_value_discarded
 	move_and_slide(-(player.movement + dash_movement*delta + 
 							  knockback_movement*delta))
