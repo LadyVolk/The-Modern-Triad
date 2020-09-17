@@ -26,3 +26,10 @@ func change_scene(_time, _which_scene: String):
 # warning-ignore:return_value_discarded
 	get_tree().change_scene("res://Loading.tscn")
 
+func _input(event):
+	
+	if event.is_action_pressed("exit"):
+		get_tree().quit()
+	
+	
+	
