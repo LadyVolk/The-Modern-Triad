@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Anxiety/Level.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/mouse_left.png" type="Texture" id=5]
 [ext_resource path="res://Bosses/Anxiety/Anxiety.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=8]
 
@@ -80,5 +81,21 @@ wait_time = 8.0
 autostart = true
 
 [node name="TransitionShader" parent="." instance=ExtResource( 8 )]
+
+[node name="Mouse" type="TextureRect" parent="."]
+margin_left = 838.545
+margin_top = 789.436
+margin_right = 1038.55
+margin_bottom = 989.436
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="Mouse"]
+wait_time = 5.0
+one_shot = true
+autostart = true
 [connection signal="timeout" from="TimerShoot" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="TimerMeditation" to="." method="_on_TimerMeditation_timeout"]
+[connection signal="timeout" from="Mouse/Timer" to="." method="_on_Timer_timeout_mouse"]

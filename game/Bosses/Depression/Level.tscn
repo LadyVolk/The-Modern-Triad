@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Bosses/Depression/Level.gd" type="Script" id=2]
 [ext_resource path="res://Infra/GameHUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Bosses/Depression/Depression.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Infra/FadeScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/images/bar.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/mouse_left.png" type="Texture" id=7]
 [ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -79,4 +81,32 @@ shape = SubResource( 2 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="TransitionShader" parent="." instance=ExtResource( 9 )]
+
+[node name="Tutorial" type="Node2D" parent="."]
+position = Vector2( 917.97, 934.551 )
+
+[node name="Bar" type="TextureRect" parent="Tutorial"]
+margin_right = 152.0
+margin_bottom = 46.0
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mouse" type="TextureRect" parent="Tutorial"]
+margin_left = -12.0586
+margin_top = -58.7863
+margin_right = 187.941
+margin_bottom = 141.214
+rect_scale = Vector2( -0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="Tutorial"]
+wait_time = 5.0
+one_shot = true
+autostart = true
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
+[connection signal="timeout" from="Tutorial/Timer" to="." method="_on_Timer_timeout"]

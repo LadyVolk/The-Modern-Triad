@@ -118,3 +118,10 @@ func boss_died():
 	yield($FadeScreen, "fade_out_finished")
 	Global.change_scene(0.1, "res://Life/Corridor3.tscn")
 	
+
+
+func _on_Timer_timeout_mouse():
+	$Tween.interpolate_property($Mouse, "modulate", Color(1, 1, 1, 1),\
+								Color(1, 1, 1, 0), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	
+	$Tween.start()

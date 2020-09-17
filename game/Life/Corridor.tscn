@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Life/Corridor.gd" type="Script" id=1]
 [ext_resource path="res://PlayerStuff/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Life/base_fade.shader" type="Shader" id=6]
 [ext_resource path="res://Life/Pixelation.tres" type="Material" id=7]
 [ext_resource path="res://Life/TransitionShader.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/images/Keyboard keys (transparent).png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 960, 20 )
@@ -348,15 +349,16 @@ __meta__ = {
 position = Vector2( 1061.94, 529.392 )
 
 [node name="Mirror" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1521.28, 492.073 )
+position = Vector2( 557.592, 502.362 )
 
 [node name="ShaderLayer" type="CanvasLayer" parent="."]
 
 [node name="Fade" type="ColorRect" parent="ShaderLayer"]
 material = SubResource( 4 )
-margin_top = 3.0
-margin_right = 1920.0
-margin_bottom = 1083.0
+margin_left = -11.4888
+margin_top = 73.9907
+margin_right = 1908.52
+margin_bottom = 1153.99
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -376,3 +378,7 @@ anims/PixelEffect = SubResource( 5 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="TransitionShader" parent="." instance=ExtResource( 8 )]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1054.55, 722.414 )
+texture = ExtResource( 9 )

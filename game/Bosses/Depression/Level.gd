@@ -30,7 +30,7 @@ func _ready():
 
 	$TransitionShader.do_transition()
 
-
+	
 func player_shoot(pos, direction):
 	var new_projectile = PROJECTILE.instance()
 	$Projectiles.add_child(new_projectile)
@@ -179,3 +179,14 @@ func boss_died():
 	$FadeScreen.fade_out()
 	yield($FadeScreen, "fade_out_finished")
 	Global.change_scene(0.1, "res://Life/Corridor2.tscn")
+
+
+func _on_Timer_timeout():
+	$Tween.interpolate_property($Tutorial, "modulate", Color(1, 1, 1, 1),\
+								Color(1, 1, 1, 0), 3, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	
+	$Tween.start()
+	
+	
+	
+	

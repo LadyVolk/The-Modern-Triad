@@ -348,7 +348,7 @@ __meta__ = {
 position = Vector2( 1061.94, 529.392 )
 
 [node name="Mirror" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1521.28, 492.073 )
+position = Vector2( 534.179, 500.667 )
 
 [node name="ShaderLayer" type="CanvasLayer" parent="."]
 
