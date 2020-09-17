@@ -111,7 +111,7 @@ func _on_TimerMeditation_timeout():
 
 
 func boss_take_damage():
-	boss.take_damage(25)
+	boss.take_damage(50)
 
 func boss_died():
 	$FadeScreen.fade_out()
