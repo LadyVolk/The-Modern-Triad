@@ -3,7 +3,7 @@ extends Node
 var which_stream = 1
 var max_sfx = 8
 
-const NORMAL_DB = 0
+const NORMAL_DB = -20
 const MUTE_DB = -60
 const FADEIN_SPEED = 60
 const FADEOUT_SPEED = 20
