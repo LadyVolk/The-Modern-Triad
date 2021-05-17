@@ -44,5 +44,6 @@ margin_right = 364.0
 margin_bottom = 234.0
 custom_fonts/font = ExtResource( 2 )
 text = "QUIT LIFE"
+
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

@@ -40,7 +40,6 @@ func player_shoot(pos, direction):
 
 func create_boost():
 	var new_boost
-	
 	randomize() 
 	var which_area
 	if $SpeedBoosts.get_child_count() == 0:
@@ -129,7 +128,7 @@ func get_boss_position(boss_):
 
 
 func _on_SpeedBoostTimer_timeout():
-	if is_instance_valid(boss):
+	if not is_instance_valid(boss):
 		return
 	if boss.boss_state == 2:
 		create_boost()

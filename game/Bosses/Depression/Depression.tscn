@@ -164,6 +164,7 @@ anims/stun = SubResource( 4 )
 [node name="TimerDelusion" type="Timer" parent="."]
 wait_time = 4.0
 autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="TimerPosition" to="." method="_on_TimerPosition_timeout"]
 [connection signal="timeout" from="TimerDelusion" to="." method="_on_TimerDelusion_timeout"]

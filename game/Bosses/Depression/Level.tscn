@@ -108,5 +108,6 @@ __meta__ = {
 wait_time = 5.0
 one_shot = true
 autostart = true
+
 [connection signal="timeout" from="SpeedBoostTimer" to="." method="_on_SpeedBoostTimer_timeout"]
 [connection signal="timeout" from="Tutorial/Timer" to="." method="_on_Timer_timeout"]
